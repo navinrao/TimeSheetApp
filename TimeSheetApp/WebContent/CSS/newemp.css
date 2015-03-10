@@ -1,0 +1,27 @@
+@CHARSET "ISO-8859-1";
+
+
+
+.container{
+	color:#4BB0CC;
+	font-family: Verdana,serif, times, "New Times Roman";
+	font-size: 1em;
+	font-weight: 500;
+	background-color:#88CFE3;
+}
+
+#session{
+	float:right;
+	padding:.5em;
+	margin-top: 1.5em;
+}
+
+#footer, nav.navbar-info{
+	font-size:1.5em;
+	color:#4BB0CC;
+	margin-right:4.5em;
+	margin-left:4.5em;
+	font-family: Verdana,serif, times, "New Times Roman";
+	text-align:center;
+	
+}

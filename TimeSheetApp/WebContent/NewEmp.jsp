@@ -80,11 +80,11 @@
   
 		  <!-- Here is the center of the page -->
 		  
- <form class="form-horizontal" role="form" action="newEmp.jsp" method="post" >
+ <form class="form-horizontal" role="form" action="addEmp.jsp" method="post" >
     <div class="form-group">
       <label class="control-label col-sm-2" for="empid">EmpID:</label>
       <div class="col-sm-5">
-        <input type="text" class="form-control" name="empid" placeholder="Employee Id">
+        <input type="number" class="form-control" name="empid" placeholder="Employee Id">
       </div>
     </div>
     <div class="form-group">
@@ -106,7 +106,7 @@
   <div class="form-group">
       <label class="control-label col-sm-2" for="init">Middle Name:</label>
       <div class="col-sm-5">          
-        <input type="text" class="form-control" name="init" placeholder="Middle Initial">
+        <input type="text" class="form-control" name="middle" placeholder="Middle Name">
       </div>
     </div>
     
@@ -135,7 +135,7 @@
     <div class="form-group">
       <label class="control-label col-sm-2" for="manager">Manager Id:</label>
       <div class="col-sm-5">          
-        <input type="number" class="form-control" name="manager" placeholder="Manager Id">
+        <input type="text" class="form-control" name="manager" placeholder="Manager Id">
       </div>
     </div>
   

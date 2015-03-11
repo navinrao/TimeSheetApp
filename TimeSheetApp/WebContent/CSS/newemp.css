@@ -1,6 +1,14 @@
 @CHARSET "ISO-8859-1";
 
 
+body {
+padding-right: 2.5em;
+padding-left: 2.5em;
+margin-right: auto;
+margin-left: auto;
+
+
+}
 
 .container{
 	color:#4BB0CC;
@@ -14,6 +22,7 @@
 	float:right;
 	padding:.5em;
 	margin-top: 1.5em;
+	margin-right:1em;
 }
 
 #footer, nav.navbar-info{

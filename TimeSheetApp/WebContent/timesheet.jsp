@@ -176,24 +176,25 @@
 
 </head>
 <body>
-<img src="C:\Users\Marks_000\workspace\TimeSheetApp\WebContent\Images\logo.jpg" alt="logo" style="width:175px;height:125px">
+<img src="${pageContext.request.contextPath}/Images/logo.jpg" alt="logo" style="width:175px;height:125px">
 
-<table  id="session">
+<table id="session" >
 	<tr>
-		<td>
-		<span class="label label-default">Signed in as</span>
+				<td>
+					<!--  <span class="label label-default col-m-8" >Signed in as</span> -->
+					<h4>Signed in <span class="label label-default"> <%=session.getAttribute("UserName") %>  </span ></h4 >
+				</td>
 		
-		</td>
+			<td><!-- session state for user -->
+				<!--  <input type="text" class="form-control" aria-describedby="basic-addon1" value="<%=session.getAttribute("UserName") %>" readonly > -->
+			
+			</td>
 		
-		<td>
-		<input type="text" class="form-control" aria-describedby="basic-addon1"  value="<%=session.getAttribute("UserName") %>" readonly>
-		
-		</td>
-		<td>    </td>
-		<td>
-		<button type="submit" class="btn btn-default">Logout</button>
-		
-		</td>
+			<td>
+				<form method="post" action="logout.jsp">
+				<button type="submit" class="btn-group btn-group-xs" >Logout</button>
+				</form>
+			</td>
 		
 		
 		</tr>

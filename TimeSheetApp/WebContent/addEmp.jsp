@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
 	<%
 	
 		request.getSession(true);
@@ -31,7 +30,7 @@ String middle = request.getParameter("middle");
 String last = request.getParameter("lname");
 String social = request.getParameter("ssn");
 String date_birth = request.getParameter("dob");
-String gender = request.getParameter("gender");
+String oreintation = request.getParameter("gender");
 String man_Id = request.getParameter("manager");
 String emp_title = request.getParameter("title");
 String user_name = request.getParameter("username");
@@ -42,7 +41,7 @@ String create_date = request.getParameter("create");
 String del_date = request.getParameter("delete");
 
 
-System.out.println("fname");
+
 
 //if(username.equals("mas6462") && password.equals("pass"))
 //{
@@ -62,10 +61,15 @@ try {
 	//"SET IDENTITY_INSERT timesheet.employees ON " 
 		String SQL = "SET IDENTITY_INSERT timesheet.employees ON " + "INSERT INTO timesheet.employees(employee_id, first_name, middle_name, last_name, ssn, dob, gender,"
 				+ "manager_id, job_title_id, username_ts, password_ts, hire_date, term_date, create_date, delete_date)"
-				+"VALUES('" + empId + "', '" + first + "', '" + middle + "', '" + last + "', '" + social + "', '" + date_birth + "', '" + gender + "', '" + man_Id + "', '" + emp_title + "', '" + user_name + "', '" + pass_word + "', '" + date_hire + "', '" + date_term + "', '" + create_date + "', '" + del_date + "');";
+				+"VALUES('" + empId + "', '" + first + "', '" + middle + "', '" + last + "', '" + social + "', '" + date_birth + "', '" + oreintation + "', '" + man_Id + "', '" + emp_title + "', '" + user_name + "', '" + pass_word + "', '" + date_hire + "', '" + date_term + "', '" + create_date + "', '" + del_date + "');";
+				
+				
+	//String SQL = //"SET IDENTITY_INSERT timesheet.employees ON " + "INSERT INTO timesheet.employees(employee_id, create_date) VALUES(5, 2012-01-01)";			
 	Statement stmt = con.createStatement();  
 	//ResultSet rs = stmt.executeQuery(SQL); 
 	stmt.executeUpdate(SQL);
+	System.out.println("Record for " + first + last + "has been added: ");
+	response.sendRedirect("NewEmp.jsp");
 }
 catch (SQLException e) 
 		{

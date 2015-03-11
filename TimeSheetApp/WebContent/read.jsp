@@ -25,8 +25,10 @@
 <%@ page import= "java.sql.DriverManager" %>
 <%@ page import="javax.swing.*" %>
 
+
+<table border="2" style="background-color: #4BB0CC;" width="auto" >
 <% 
-int empId =Integer.parseInt(request.getParameter("empid"));
+int empId=9;
 
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         String connectionUrl = "jdbc:sqlserver://oz-ist-iissql.abington.psu.edu;" + 
@@ -53,7 +55,22 @@ try {
 		 
 		    //response.sendRedirect("welcome.jsp");
 		    
-		   
+		    %>
+		    
+		    
+			
+		    
+		    <tr><td>Emp_id</td><td><input type="text" name="empid" value="<%=rs.getString("employee_id")%>"></td></tr>
+		    <tr><td>First Name</td><td><input type="text" name="empid" value="<%=rs.getString("first_name")%>"></td></tr>
+		    <tr><td>Last Name</td><td><input type="text" name="empid" value="<%=rs.getString("last_name")%>"></td></tr>
+		    <tr><td>SSN</td><td><input type="text" name="empid" value="<%=rs.getString("ssn")%>"></td></tr>
+		    <tr><td>Date Of Birth</td><td><input type="text" name="empid" value="<%=rs.getString("dob")%>"></td></tr>
+		    <tr><td>Gender</td><td><input type="text" name="empid" value="<%=rs.getString("gender")%>"></td></tr>
+		    <tr><td>Manager</td><td><input type="text" name="empid" value="<%=rs.getString("manager_id")%>"></td></tr>
+		    <tr><td>User Name</td><td><input type="text" name="empid" value="<%=rs.getString("username_ts")%>"></td></tr>
+		    <tr><td>Password</td><td><input type="text" name="empid" value="<%=rs.getString("password_ts")%>"></td></tr>
+		    <tr><td>Hire Date</td><td><input type="text" name="empid" value="<%=rs.getString("hire_date")%>"></td></tr>
+		    <%
 		    
 		    }
 		    else
@@ -74,6 +91,6 @@ try {
 			} 
 	
 %>
-
+</table>
 </body>
 </html>

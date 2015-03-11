@@ -205,9 +205,12 @@
       <div class="col-sm-offset-2 col-sm-10">
       
         <button type="submit" class="btn btn-primary">Submit</button>
-      
-      </div>
+        
+       </div>
     </div>
+    
+
+    
     
     
  </form><!-- This ends the entire form that post up to server -->

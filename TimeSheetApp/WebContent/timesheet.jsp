@@ -33,8 +33,8 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
     <!--Used for JQuery Timepicker-->
-<script type="text/javascript" src="../plugins/jquery.timepicker.js"></script>
-    <link rel="stylesheet" type="text/css" href="../plugins/jquery.timepicker.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}//plugins/jquery.timepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}//plugins/jquery.timepicker.css">
     
     
     

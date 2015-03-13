@@ -10,6 +10,8 @@
 	if(session.getAttribute("UserName")== null)
 	response.sendRedirect("login.jsp");
 	%>
+
+	
 	
 <html>
 <head>
@@ -33,8 +35,12 @@
 </head>
 <body>
 
+		<!-- code for pop up box -->
+<!-- <script Language="javaScript">alert("Welcome")</script> -->
 
 <img src="${pageContext.request.contextPath}/Images/logo.jpg" alt="logo" style="width:175px;height:125px">
+
+
 
 <table id="session" >
 	<tr>
@@ -94,6 +100,13 @@
 		<p> IST 440 Group 1 Spring 2015 </p>
 		</div>
 
+
+
+<script type="text/javascript">
+
+ 
+ 
+ </script> 
 
 </body>
 </html>

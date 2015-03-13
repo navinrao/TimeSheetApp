@@ -25,11 +25,11 @@
 <%@ page import= "java.sql.DriverManager" %>
 <%@ page import="javax.swing.*" %>
 
-
+	<!-- table to handle display -->
 <table border="2" style="background-color: #4BB0CC;" width="auto" >
 <% 
 int empId=9;
-
+			
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         String connectionUrl = "jdbc:sqlserver://oz-ist-iissql.abington.psu.edu;" + 
                 "database=ist440grp1sp15;" + 
@@ -38,8 +38,8 @@ int empId=9;
 Connection con;
 try {
 	con = DriverManager.getConnection(connectionUrl);
-    // Create and execute an SQL statement that returns some data.  
-  	//String SQL = "SELECT * FROM timesheet.login where UserName = 'mas6462'";
+     // Create and execute an SQL statement that returns some data.  
+    //  String SQL = "SELECT * FROM timesheet.login where UserName = 'mas6462'";
     
     
    	String SQL = ("SELECT * From timesheet.employees Where employee_id='" + empId + "'");
@@ -47,9 +47,9 @@ try {
     ResultSet rs = stmt.executeQuery(SQL); 
     if(rs.next())
 		    {
-		   // session=request.getSession();
+		     //session=request.getSession();
     		//session.setAttribute("UserName", UserName);
-		   	//System.out.println("Welcome: " + UserName);
+		   // System.out.println("Welcome: " + UserName);
 		    System.out.println("Connected.");
 		    System.out.println(rs.getString(1));
 		 
@@ -57,9 +57,7 @@ try {
 		    
 		    %>
 		    
-		    
-			
-		    
+		    	    
 		    <tr><td>Emp_id</td><td><input type="text" name="empid" value="<%=rs.getString("employee_id")%>"></td></tr>
 		    <tr><td>First Name</td><td><input type="text" name="empid" value="<%=rs.getString("first_name")%>"></td></tr>
 		    <tr><td>Last Name</td><td><input type="text" name="empid" value="<%=rs.getString("last_name")%>"></td></tr>
@@ -77,7 +75,7 @@ try {
 		    {
 		    	String error = (" Login Error " + "\n" + " your Username or password is incorrect Please try again. ");
 		    			System.out.println(error);
-		    			response.sendRedirect("NewEmp.jsp");
+		    			//response.sendRedirect("NewEmp.jsp");
 		    			
 		    }
  
@@ -90,7 +88,7 @@ try {
 		
 			} 
 	
-%>
+%><!-- Jsp:scriplet -->
 </table>
 </body>
 </html>

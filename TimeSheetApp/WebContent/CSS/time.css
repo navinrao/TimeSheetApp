@@ -1,0 +1,49 @@
+body {
+
+font-family: Verdana, Arial, Tahoma;
+font-size: 1.5em;
+color: #000;
+
+}
+.container {
+padding-right: 15px;
+padding-left: 15px;
+margin-right: auto;
+margin-left: auto;
+}
+#save, #submit{
+	display:inline-block;
+	font-size: 1em;
+	height: 2.5em;
+	width: 5.5em;
+	padding: .5em;
+	margin:auto;
+	align:middle;
+
+	
+
+}
+#project{
+	size="1";
+	height: 40px; 
+	width: 100px;
+}
+.Sun, .Mon, .Tues, .Wed, .Thurs, .Fri, .Sat, .total{
+	height: 40px; 
+	width: 50px;
+	background-color: white;
+}
+h2{
+	font-family:Verdana, Arial, Tahoma;
+	font-size: 2.5em;
+	color:#4BB0CC;
+	text-align:center;
+	padding:10px;
+}
+.date {
+    font-weight : normal;
+}
+.timepicker {
+    width : 100px;
+    font-size : medium;
+}

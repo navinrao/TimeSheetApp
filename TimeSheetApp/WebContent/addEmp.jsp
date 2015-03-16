@@ -68,8 +68,22 @@ try {
 	Statement stmt = con.createStatement();  
 	//ResultSet rs = stmt.executeQuery(SQL); 
 	stmt.executeUpdate(SQL);
-	System.out.println("Record for " + first + last + "has been added: ");
-	response.sendRedirect("NewEmp.jsp");
+	//System.out.println("Record for " + first + last + "has been added: ");
+	//response.sendRedirect("NewEmp.jsp");
+	
+	 String confirm= " A record for " + first + last + " has been created" + "\n" + " Would you like to add another? " ; 		
+	//response.sendRedirect("login.jsp");
+		
+		String option[] ={"OK", "NO"};
+		int status = JOptionPane.showOptionDialog(null, confirm, "Add Record", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
+		if(status==JOptionPane.OK_OPTION)
+		{
+			response.sendRedirect("NewEmp.jsp");
+		}
+		else
+		{
+			response.sendRedirect("welcome.jsp");
+		}
 }
 catch (SQLException e) 
 		{
@@ -80,10 +94,6 @@ catch (SQLException e)
 		} 
 
 %>
-
-
-
-
 
 </body>
 </html>

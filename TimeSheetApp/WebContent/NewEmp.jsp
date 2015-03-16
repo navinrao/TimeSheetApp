@@ -27,6 +27,12 @@
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/newemp.css">
 
 
+
+
+
+</script>
+
+
 </head>
 <body>
 
@@ -75,24 +81,24 @@
   
 		  <!-- Here is the center of the page -->
 		  
- <form class="form-horizontal" role="form" action="addEmp.jsp" method="post" >
+ <form class="form-horizontal"  data-toggle="validator"  role="form" action="addEmp.jsp" method="post" >
     <div class="form-group">
       <label class="control-label col-sm-2" for="empid">EmpID:</label>
       <div class="col-sm-5">
-        <input type="number" class="form-control" name="empid" placeholder="Employee Id">
+        <input type="number" class="form-control" name="empid" required>
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2" for="fname">First Name:</label>
       <div class="col-sm-5">          
-        <input type="text" class="form-control" name="fname" placeholder="First Name">
+        <input type="text" class="form-control" name="fname" required>
       </div>
     </div>
   
   <div class="form-group">
       <label class="control-label col-sm-2" for="lname">Last Name:</label>
       <div class="col-sm-5">          
-        <input type="text" class="form-control" name="lname" placeholder="Last Name">
+        <input type="text" class="form-control" name="lname"required>
       
       </div>
     </div>
@@ -101,7 +107,7 @@
   <div class="form-group">
       <label class="control-label col-sm-2" for="init">Middle Name:</label>
       <div class="col-sm-5">          
-        <input type="text" class="form-control" name="middle" placeholder="Middle Name">
+        <input type="text" class="form-control" name="middle">
       </div>
     </div>
     
@@ -109,49 +115,49 @@
     <div class="form-group">
       <label class="control-label col-sm-2" for="ssn">SSN:</label>
       <div class="col-sm-5">          
-        <input type="number" class="form-control" name="ssn" placeholder="SSN">
+        <input type="number" class="form-control" name="ssn" >
       </div>
     </div>
     
     <div class="form-group">
       <label class="control-label col-sm-2" for="dob">Date Of Birth</label>
       <div class="col-sm-5">          
-        <input type="text" class="form-control" name="dob" placeholder="Date of Birth">
+        <input type="text" class="form-control" name="dob" required>
       </div>
     </div>
     
     <div class="form-group">
       <label class="control-label col-sm-2" for="gender">Gender</label>
       <div class="col-sm-5">          
-        <input type="text" class="form-control" name="gender" placeholder="Gender">
+        <input type="text" class="form-control" name="gender" >
       </div>
     </div>
     
     <div class="form-group">
       <label class="control-label col-sm-2" for="manager">Manager Id:</label>
       <div class="col-sm-5">          
-        <input type="text" class="form-control" name="manager" placeholder="Manager Id">
+        <input type="text" class="form-control" name="manager">
       </div>
     </div>
   
   	<div class="form-group">
       <label class="control-label col-sm-2" for="title"> Title Id:</label>
       <div class="col-sm-5">          
-        <input type="text" class="form-control" name="title" placeholder="Employee Title">
+        <input type="text" class="form-control" name="title" >
       </div>
     </div>
     
         <div class="form-group">
       <label class="control-label col-sm-2" for="username">User Name:</label>
       <div class="col-sm-5">          
-        <input type="text" class="form-control" name="username" placeholder="User Name">
+        <input type="text" pattern="^([_A-z0-9]){3,}$" maxlength="10" class="form-control" name="username" required>
       </div>
     </div>
     
         <div class="form-group">
       <label class="control-label col-sm-2" for="password">PassWord:</label>
       <div class="col-sm-5">          
-        <input type="text" class="form-control" name="password" placeholder="PassWord">
+        <input type="text" class="form-control" name="password" required>
       </div>
     </div>
     
@@ -159,7 +165,7 @@
         <div class="form-group">
       <label class="control-label col-sm-2" for="doh">Date Of Hire:</label>
       <div class="col-sm-5">          
-        <input type="text" class="form-control" name="doh" placeholder="Date of Hire">
+        <input type="text" class="form-control" name="doh" >
       </div>
     </div>
     
@@ -174,7 +180,7 @@
         <div class="form-group">
       <label class="control-label col-sm-2" for="create">Create Date:</label>
       <div class="col-sm-5">          
-        <input type="text" class="form-control" name="create" placeholder="Date Created">
+        <input type="text" class="form-control" name="create" required>
       </div>
     </div>
     

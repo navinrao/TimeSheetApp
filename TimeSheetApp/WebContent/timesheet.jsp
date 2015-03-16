@@ -23,6 +23,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/newemp.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/time.css">
 
 
 

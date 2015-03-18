@@ -1,13 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page import="timesheet.Projects" language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-	<%
-
-	request.getSession(true);
-	if(session.getAttribute("UserName")== null)
-	response.sendRedirect("login.jsp");
-	%>
 
 <html>
 <head>
@@ -23,12 +17,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/newemp.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/time.css">
-
-
-
-
-
 
 <!-- Loads JQuery from Google CDN -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -41,6 +29,7 @@
     
     <!-- JavaScript for current Page -->
 <script type="text/javascript">
+	isPopulated = 1;	// ensures code doesn't re-execute and repopulate
 
     $(document).ready(function () {
         // Populates dates below days on document load
@@ -60,8 +49,49 @@
                 miliSeconds += 24 * 60 * 60 * 1000;             // adds one day to milliseconds to get next date
             });
         })();
-    });
+        
+    	/* Added 3/17/15 */
+        // Populates drop down menu (id = project) with projects from "projCodesMenu" Java class
+        	<%
 
+	request.getSession(true);
+	if(session.getAttribute("UserName")== null)
+	response.sendRedirect("login.jsp");
+	
+	Projects user1 = new Projects("1");
+	
+	// projCodesMenu should be populated by data from database. Below is temporary hard code population of projCodesMenu
+	user1.projCodesMenu.add("Project 1");
+	user1.projCodesMenu.add("Project 007");
+	user1.projCodesMenu.add("Project 3");
+	user1.addProject("Project 1");
+
+	//user1.addProject("Project 1");
+	//user1.addProject("Project 007");
+	
+	//int day = integer value of any day of the week button clicked by user to populate start and end times
+/*     for (int projects = 0; projects < user1.weeklyProjects.size(); projects++) {
+         user1.weeklyProjects.get(projects).getStartTime(day);
+         user1.weeklyProjects.get(projects).getEndTime(day);
+    } */
+	%>
+        (function populateDropDownMenu() {
+/*         	alert("isPopulated : " + isPopulated);
+ */        	if (isPopulated > 1) 
+        		return;
+            <% 
+            for (int i = 0; i < user1.projCodesMenu.size(); i ++) {
+           		String temp = user1.projCodesMenu.get(i);
+        	%>
+        	// i needs to be added by 1 in the option tag because it starts at 1 and not 0
+            $("#project").append("<option value=<%=i + 1%>><%=temp%></option>");
+        	<%
+            }
+            %>
+            isPopulated = isPopulated + 1;
+            //alert("isPopulated is now " + isPopulated);
+        }) ();
+    });
     /* Calculates the difference in time between two timepickers. This method is called when a timepicker time is changed*/
     var calculateTime = function () {
 
@@ -107,9 +137,28 @@
     }
 
 	// Function adds projects and corresponding rows to the timesheet
-    var addProject = function () {
+    var addProject = function (selectedTag) {
 
-        var x = document.getElementById("project").value;
+		
+		
+		
+		alert("called addProject");
+					/* Added 3/18/15 */			
+		var index = selectedTag.selectedIndex;
+		inner = selectedTag.options[index].innerHTML;
+        //var x = document.getElementById("project").value;
+        window.location.replace("timesheet.jsp?project="+inner);	// posts "inner" variable in URL so we can pass JS variable to Java
+		<% String message = request.getParameter("project");
+		System.out.println("Project Selected : " + message);
+/* 		
+		System.out.println("Project Code Menu Size : " + user1.projCodesMenu.size());
+        for (int i = 0; i < user1.projCodesMenu.size(); i ++) {
+       		System.out.println(i + ": " + user1.projCodesMenu.get(i));
+        } */
+        
+		user1.addProject(message);	// NOT REMOVING PROJECT CODE FOR SOME REASON
+		%>
+		getTableHTML(message);
         if (x == "Project 1") {
         	document.getElementById("proj1").disabled = true;
         	getTableHTML(x);
@@ -161,7 +210,7 @@
                 /* Deselects all columns */
                 $("." + selectedDay).each(function () {
                     $(this).css("background", "white");       // was #EEEEEE
-                })
+                });
 
                 /* Selects clicked on column only */
                 $(":input").removeClass("selectedDay");    // removes any previously selected days
@@ -172,9 +221,6 @@
         });
     }
     </script>
-				
-
-
 </head>
 <body>
 <img src="${pageContext.request.contextPath}/Images/logo.jpg" alt="logo" style="width:175px;height:125px">
@@ -262,11 +308,11 @@
         </tbody>
         <tfoot>
 	    	<td>
-				<select id ="project" onchange="addProject()">
-				  <option value="">Project</option>
+				<select id ="project" onchange="addProject(this)">
+<!-- 				  <option value="">Project</option>
 				  <option id="proj1" value="Project 1">Project 1</option>
 				  <option id="proj2" value="Project 2">Project 2</option>
-				  <option id="proj3" value="Project 3">Project 3</option>
+				  <option id="proj3" value="Project 3">Project 3</option> -->
 				</select>
             </td>
             

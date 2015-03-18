@@ -31,12 +31,12 @@
 
 	
 		
-      <form class="form-signin" method="post" action="index.jsp">
+      <form class="form-signin" id="login" method="post" action="index.jsp">
        
         <label for="username" class="sr-only">User Name</label>
-        <input type="text" name="username"  class="form-control"  required >
+        <input type="text" name="username" id="user" class="form-control"  required >
         <label for="password" class="sr-only">Password</label>
-        <input type="password" name="password"  class="form-control" required>
+        <input type="password" name="password"  id="pass" class="form-control" required>
         <div class="checkbox">
           <label>
             <input type="checkbox" value="remember-me"> Remember me

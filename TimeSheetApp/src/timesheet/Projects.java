@@ -18,6 +18,7 @@ public class Projects {
 		empID = theEmpID;		
 		
 		getConnection();
+		getProjCodesMenu();
 		// projCodesMenu.add(SELECT EACH PROJECT CODE FROM PROJECT CODE TABLE AVAILABLE TO EMPLOYEE ID)
 		// must populate projCodesMenu from the database for the current user
 		// possibly use a Scanner in = new Scanner(); in.Next() for each project code returned from select statement;
@@ -40,6 +41,45 @@ public class Projects {
 			System.out.println(projCodesMenu.get(z));
 		}
 	}
+	
+	//Get projects for timesheet.project 
+	public void getProjCodesMenu(){
+		
+		String connectionUrl = "jdbc:sqlserver://oz-ist-iissql.abington.psu.edu;" + 
+                "database=ist440grp1sp15;" +  "user=ist440grp1sp15;" + 
+                "password=ist440grp1sp15"; 
+			Connection con = null;
+			Statement stmt = null;
+			ResultSet rs = null;
+			try {
+			con = DriverManager.getConnection(connectionUrl);
+			System.out.println("Connected."); 
+			
+			// Create and execute an SQL statement that returns some data.  
+			String SQL = "SELECT project_code FROM timesheet.project";  
+			stmt = con.createStatement();  
+			rs = stmt.executeQuery(SQL); 
+			
+			// Iterate through the data in the result set and display it.
+			//re.next iterates through the result set.
+			int count = 0; // initialized the index 
+			while (rs.next())  
+			{  
+				
+				projCodesMenu.add(count, rs.getString(1));
+				
+				//System.out.println(rs.getString(1));
+				System.out.println(count);
+			} 
+			}
+			catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			}
+		
+	}
+	
+	
 	
 	public void getConnection() {
 		String connectionUrl = "jdbc:sqlserver://oz-ist-iissql.abington.psu.edu;" + 

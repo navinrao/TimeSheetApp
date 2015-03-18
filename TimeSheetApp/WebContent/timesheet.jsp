@@ -61,10 +61,10 @@
 	Projects user1 = new Projects("1");
 	
 	// projCodesMenu should be populated by data from database. Below is temporary hard code population of projCodesMenu
-	user1.projCodesMenu.add("Project 1");
-	user1.projCodesMenu.add("Project 007");
-	user1.projCodesMenu.add("Project 3");
-	user1.addProject("Project 1");
+	//user1.projCodesMenu.add("Project 1");
+	//user1.projCodesMenu.add("Project 007");
+	//user1.projCodesMenu.add("Project 3");
+	//user1.addProject("Project 1");
 
 	//user1.addProject("Project 1");
 	//user1.addProject("Project 007");
@@ -142,7 +142,7 @@
 		
 		
 		
-		alert("called addProject");
+		//alert("called addProject");
 					/* Added 3/18/15 */			
 		var index = selectedTag.selectedIndex;
 		inner = selectedTag.options[index].innerHTML;
@@ -159,7 +159,7 @@
 		user1.addProject(message);	// NOT REMOVING PROJECT CODE FOR SOME REASON
 		%>
 		getTableHTML(message);
-        if (x == "Project 1") {
+/*         if (x == "Project 1") {
         	document.getElementById("proj1").disabled = true;
         	getTableHTML(x);
         }
@@ -177,7 +177,7 @@
                 calculateTime();
             }
         });
-    }
+ */    }
     //<!-- Inserts a new row for new project -->
     var getTableHTML = function (name) {
         $(".table > tbody:last").append("<tr class='unselected'> <td><button class='projBtn' onclick=selectRow(this)>" + name + "</button></td>"

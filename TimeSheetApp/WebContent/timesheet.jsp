@@ -29,10 +29,27 @@
     
     <!-- JavaScript for current Page -->
 <script type="text/javascript">
-	isPopulated = 1;	// ensures code doesn't re-execute and repopulate
+	var isPopulated = false;	// ensures code doesn't re-execute and repopulate
+	<%
 
+	request.getSession(true);
+	if(session.getAttribute("UserName")== null)
+	response.sendRedirect("login.jsp");
+	
+	Projects user1 = new Projects("1");
+	
+	//int day = integer value of any day of the week button clicked by user to populate start and end times
+/*     for (int projects = 0; projects < user1.weeklyProjects.size(); projects++) {
+         user1.weeklyProjects.get(projects).getStartTime(day);
+         user1.weeklyProjects.get(projects).getEndTime(day);
+    } */
+	%>
+    
     $(document).ready(function () {
         // Populates dates below days on document load
+        alert("Document Ready Function Run");
+        
+        
         (function populateDates() {
             var today = new Date();     // holds the current date
             var dayOfTheWeek = today.getDay();  // holds the day of the week (from 0-6)
@@ -50,35 +67,10 @@
             });
         })();
         
-    	/* Added 3/17/15 */
-        // Populates drop down menu (id = project) with projects from "projCodesMenu" Java class
-        	<%
-
-	request.getSession(true);
-	if(session.getAttribute("UserName")== null)
-	response.sendRedirect("login.jsp");
-	
-	Projects user1 = new Projects("1");
-	
-	// projCodesMenu should be populated by data from database. Below is temporary hard code population of projCodesMenu
-	//user1.projCodesMenu.add("Project 1");
-	//user1.projCodesMenu.add("Project 007");
-	//user1.projCodesMenu.add("Project 3");
-	//user1.addProject("Project 1");
-
-	//user1.addProject("Project 1");
-	//user1.addProject("Project 007");
-	
-	//int day = integer value of any day of the week button clicked by user to populate start and end times
-/*     for (int projects = 0; projects < user1.weeklyProjects.size(); projects++) {
-         user1.weeklyProjects.get(projects).getStartTime(day);
-         user1.weeklyProjects.get(projects).getEndTime(day);
-    } */
-	%>
         (function populateDropDownMenu() {
-/*         	alert("isPopulated : " + isPopulated);
- */        	if (isPopulated > 1) 
-        		return;
+         	//alert("isPopulated : " + isPopulated);
+         	//if (isPopulated == true) 
+        	//	return;
             <% 
             for (int i = 0; i < user1.projCodesMenu.size(); i ++) {
            		String temp = user1.projCodesMenu.get(i);
@@ -88,9 +80,11 @@
         	<%
             }
             %>
-            isPopulated = isPopulated + 1;
+            //isPopulated = true;
             //alert("isPopulated is now " + isPopulated);
         }) ();
+    	/* Added 3/17/15 */
+        // Populates drop down menu (id = project) with projects from "projCodesMenu" Java class
     });
     /* Calculates the difference in time between two timepickers. This method is called when a timepicker time is changed*/
     var calculateTime = function () {
@@ -137,28 +131,62 @@
     }
 
 	// Function adds projects and corresponding rows to the timesheet
-    var addProject = function (selectedTag) {
+	
+	
+	
+	
+	
+    <%= "	var addProject = function (selectedProject) { " + 
+    		"alert('called addProject');" + 
+    		"var index = selectedProject.selectedIndex;" + 
+    		"alert('a');" + 
+    		"var projectCode = selectedProject.options[index].innerHTML;" +
+    	    "alert('b');" + 
+            "var x = document.getElementById('project').value;" +
+    		"alert('c');" +
+            "window.location.replace('timesheet.jsp?project='+projectCode);	// posts 'projectCode' variable in URL so we can pass JS variable to Java" 
+    %>
+            <% 
+            String theProjectCode = request.getParameter("project"); 
+    		System.out.println("Project Selected : " + theProjectCode);
+    		user1.addProject(theProjectCode);
+    		%>
+    
+    
+    
+<%-- 	var addProject = function (selectedProject) {
 
-		
-		
-		
-		//alert("called addProject");
-					/* Added 3/18/15 */			
-		var index = selectedTag.selectedIndex;
-		inner = selectedTag.options[index].innerHTML;
+		alert("called addProject");
+		var index = selectedProject.selectedIndex;
+		var projectCode = selectedProject.options[index].innerHTML;
         //var x = document.getElementById("project").value;
-        window.location.replace("timesheet.jsp?project="+inner);	// posts "inner" variable in URL so we can pass JS variable to Java
-		<% String message = request.getParameter("project");
-		System.out.println("Project Selected : " + message);
+        window.location.replace("timesheet.jsp?project="+projectCode);	// posts "projectCode" variable in URL so we can pass JS variable to Java
+		<% String theProjectCode = request.getParameter("project");
+		System.out.println("Project Selected : " + theProjectCode); --%>
 /* 		
 		System.out.println("Project Code Menu Size : " + user1.projCodesMenu.size());
         for (int i = 0; i < user1.projCodesMenu.size(); i ++) {
        		System.out.println(i + ": " + user1.projCodesMenu.get(i));
         } */
         
-		user1.addProject(message);	// NOT REMOVING PROJECT CODE FOR SOME REASON
+		user1.addProject(theProjectCode);
+<%-- 		<% %> --%>
+		var test = document.getElementById("project");
+        while (test.firstChild) {
+        	test.removeChild(test.firstChild);
+        }
+        
+		<%
+        for (int i = 0; i < user1.projCodesMenu.size(); i ++) {
+        		String temp = user1.projCodesMenu.get(i);
+     	%>
+     	// it needs to be added by 1 in the option tag because it starts at 1 and not 0
+         	$("#project").append("<option value=<%=i + 1%>><%=temp%></option>");
+     	<%
+         }
 		%>
-		getTableHTML(message);
+		//getTableHTML(message);
+		
 /*         if (x == "Project 1") {
         	document.getElementById("proj1").disabled = true;
         	getTableHTML(x);
@@ -177,7 +205,7 @@
                 calculateTime();
             }
         });
- */    }
+     }
     //<!-- Inserts a new row for new project -->
     var getTableHTML = function (name) {
         $(".table > tbody:last").append("<tr class='unselected'> <td><button class='projBtn' onclick=selectRow(this)>" + name + "</button></td>"
@@ -309,10 +337,6 @@
         <tfoot>
 	    	<td>
 				<select id ="project" onchange="addProject(this)">
-<!-- 				  <option value="">Project</option>
-				  <option id="proj1" value="Project 1">Project 1</option>
-				  <option id="proj2" value="Project 2">Project 2</option>
-				  <option id="proj3" value="Project 3">Project 3</option> -->
 				</select>
             </td>
             

@@ -19,6 +19,8 @@ public class Projects {
 		
 		getConnection();
 		getProjCodesMenu();
+		
+		// 
 		// projCodesMenu.add(SELECT EACH PROJECT CODE FROM PROJECT CODE TABLE AVAILABLE TO EMPLOYEE ID)
 		// must populate projCodesMenu from the database for the current user
 		// possibly use a Scanner in = new Scanner(); in.Next() for each project code returned from select statement;

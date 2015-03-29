@@ -1,52 +1,62 @@
 package timesheet;
 
-import java.util.Date;
+import java.sql.Time;
 
 public class Project {
-	String projCode; // must be a valid project code
-	Date[] startTime = new Date[5]; // will be constructed as null
-	Date[] endTime = new Date[5]; // will be constructed as null
-	double[] dailyTotalHours = new double[5]; // total daily hours between startTime[day] & endTime[day]
-	double weeklyTotalHours = 0; // total hours for each day of the week
-	int day; //index for arrays used in methods (0-Monday, 1-Tuesday, 2-Wednesday, 3-Thursday, 4-Friday
+	public final String projectCode; // must be a valid project code
+	public Time[] startTime = new Time[7]; // will be constructed as null
+	public Time[] endTime = new Time[7]; // will be constructed as null
+	public double[] dailyTotalHours = new double[7]; // total hours for a project during each day between startTime[day] & endTime[day]
+	public boolean[] isRecord = new boolean[7]; // indicates data was retrieved from database so user cannot change
+	public double weeklyTotalHours = 0; // total hours for all days of the week
+	public int day; // day of the week index for all project data related arrays (0-Sunday, 1-Monday, 2-Tuesday, 3-Wednesday, 4-Thursday, 5-Friday, 6-Saturday)
 	
 	public Project (String theProjCode) {
-		projCode = theProjCode; // sets the instance variable to a valid project code
-		for (int d = 0; d < 5; startTime[d] = null, endTime[d] = null, dailyTotalHours[d] = 0, d++) {
-			
-		} // for all days of week initializes startTime & endTime as null and dailyTotalHours as 0
-		// add SQL Database Connection to populate all data from existing timesheet_history table records
-	}
-	public String getProjCode() {
-		return projCode;
+		projectCode = theProjCode; // sets the instance variable to a valid project code
+		for (day = 0; day < 7; dailyTotalHours[day] = 0, isRecord[day] = false, day++) {}
 	}
 	
-	public void setStartTime (int theDay, Date theStartTime) {
-		startTime[theDay] = theStartTime;
+	public String getProjectCode() {
+		return projectCode;
 	}
-	
-	public Date getStartTime (int theDay) {
+
+	public Time getStartTime (int theDay) {
 		return startTime[theDay];
 	}
-	
-	public void setEndTime (int theDay, Date theEndTime) {
-		endTime[theDay] = theEndTime;
+
+	public void setStartTime (int theDay, Time theTime) {
+		startTime[theDay] = theTime;
 	}
-	
-	public Date getEndTime (int theDay) {
+	public Time getEndTime (int theDay) {
 		return endTime[theDay];
 	}
 	
-	public void setDailyTotalHours (int theDay) {
-		dailyTotalHours[theDay] = (double) (endTime[theDay].getTime() - startTime[theDay].getTime()); // will need to be adjusted to reflect HOURS as a decimal rather than the predefined getTime value units
+	public void setEndTime (int theDay, Time theTime) {
+		endTime[theDay] = theTime;
 	}
 	
-	public double getDailyTotalHours (int theDay) { // may need to be converted to String for HTML element
-		return dailyTotalHours[theDay];
+	public void calculateDailyTotalHours (int theDay) {
+                dailyTotalHours[theDay] = (double) (getEndTime(theDay).getTime() - getStartTime(theDay).getTime()) / 360000.0;
+	}
+
+	public double getDailyTotalHours (int theDay) {
+                return dailyTotalHours[theDay];
 	}
 	
-	public double getWeeklyTotalHours () { // may need to be converted to String for HTML element
-		for (int d = 0; d < 5; weeklyTotalHours += dailyTotalHours[d], d++) {}
-		return weeklyTotalHours;
-	}	 
+	public void setDailyTotalHours (int theDay, double theTotalHours) {
+                dailyTotalHours[theDay] = theTotalHours;
+	}
+	
+	public double getWeeklyTotalHours () { // 0 thru 6 OR Sunday Monday Tuesday Wednesday Thursday Friday Saturday
+                for (day = 0; day < 6; weeklyTotalHours += dailyTotalHours[day], day++) {}
+                return weeklyTotalHours;
+        }
+        
+        public void setIsRecord (int theDay) {
+                isRecord[theDay] = true;
+        }
+        
+        public boolean getIsRecord (int theDay) {
+                return isRecord[theDay];
+        }
 }

@@ -29,7 +29,7 @@
     
     <!-- JavaScript for current Page -->
 <script type="text/javascript">
-	var isPopulated = false;	// ensures code doesn't re-execute and repopulate
+	//var isPopulated = false;	// ensures code doesn't re-execute and repopulate
 	<%
 
 	request.getSession(true);
@@ -44,12 +44,16 @@
          user1.weeklyProjects.get(projects).getEndTime(day);
     } */
 	%>
-    
     $(document).ready(function () {
         // Populates dates below days on document load
-        alert("Document Ready Function Run");
+       // alert("Document Ready Function Run");	// Lets us know everytime the DOM is reloaded
         
-        
+        // Hides all rows with the class attribute (all rows with project codes have a class attribute)
+        $("tr").each(function(index) {
+        	if($(this).attr("class"))
+            	$(this).hide();
+        });
+                
         (function populateDates() {
             var today = new Date();     // holds the current date
             var dayOfTheWeek = today.getDay();  // holds the day of the week (from 0-6)
@@ -67,6 +71,7 @@
             });
         })();
         
+        // Populates  Drop Down Menu from projCodesMenu ArrayList
         (function populateDropDownMenu() {
          	//alert("isPopulated : " + isPopulated);
          	//if (isPopulated == true) 
@@ -131,12 +136,10 @@
     }
 
 	// Function adds projects and corresponding rows to the timesheet
-	
-	
-	
-	
-	
-    <%= "	var addProject = function (selectedProject) { " + 
+
+	// Commented out for the good of humanity. Too complicated. 
+	////////////////////////////////////////////////////////////////////
+<%--     <%= "	var addProject = function (selectedProject) { " + 
     		"alert('called addProject');" + 
     		"var index = selectedProject.selectedIndex;" + 
     		"alert('a');" + 
@@ -150,33 +153,36 @@
             String theProjectCode = request.getParameter("project"); 
     		System.out.println("Project Selected : " + theProjectCode);
     		user1.addProject(theProjectCode);
-    		%>
+    		%> --%>
+    //////////////////////////////////////////////////////////////////////
     
     
-    
-<%-- 	var addProject = function (selectedProject) {
+	var addProject = function (selectedProject) {
 
-		alert("called addProject");
+		//alert("called addProject");
 		var index = selectedProject.selectedIndex;
 		var projectCode = selectedProject.options[index].innerHTML;
+
+		$("."+projectCode).show();	// Displays row with project code that was selected
+		// Hides option tag in Drop Down Menu after selection
+		$("option").each(function(index) {
+			if (this.innerHTML == projectCode)
+				$(this).hide();
+		});
         //var x = document.getElementById("project").value;
-        window.location.replace("timesheet.jsp?project="+projectCode);	// posts "projectCode" variable in URL so we can pass JS variable to Java
-		<% String theProjectCode = request.getParameter("project");
-		System.out.println("Project Selected : " + theProjectCode); --%>
-/* 		
-		System.out.println("Project Code Menu Size : " + user1.projCodesMenu.size());
-        for (int i = 0; i < user1.projCodesMenu.size(); i ++) {
-       		System.out.println(i + ": " + user1.projCodesMenu.get(i));
-        } */
+<%--         window.location.replace("timesheet.jsp?project="+projectCode);	// posts "projectCode" variable in URL so we can pass JS variable to Java
         
+		<% String theProjectCode = request.getParameter("project");
+		System.out.println("Project Selected : " + theProjectCode);
 		user1.addProject(theProjectCode);
-<%-- 		<% %> --%>
-		var test = document.getElementById("project"));
+ 		 %>
+ 		 
+		var test = document.getElementById("project");
         while (test.firstChild) {
         	test.removeChild(test.firstChild);
-        }
+        } --%>
         
-		<%
+<%-- 		<%
         for (int i = 0; i < user1.projCodesMenu.size(); i ++) {
         		String temp = user1.projCodesMenu.get(i);
      	%>
@@ -184,7 +190,8 @@
          	$("#project").append("<option value=<%=i + 1%>><%=temp%></option>");
      	<%
          }
-		%>
+		%> --%>
+    }
 		//getTableHTML(message);
 		
 /*         if (x == "Project 1") {
@@ -267,7 +274,7 @@
 		
 			<td>
 				<form method="post" action="logout.jsp">
-				<button type="submit" class="btn-group btn-group-xs" name="submit" >Logout</button>
+				<button type="submit" class="btn-group btn-group-xs" >Logout</button>
 				</form>
 			</td>
 		
@@ -317,17 +324,6 @@
             <th><button onclick="selectColumn(this)">Sat</button></th>
             <th>TOTAL</th>
           </tr>
-          <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>
-		<input type="text"  id="sun" size=4> 
-     	</td>
-     </tr>
-     
-     
-     
 		  <tr>
 			<th></th>
 			<th></th>
@@ -343,7 +339,24 @@
 		  </tr>
         </thead>
         <tbody>
-        	<tr></tr>
+        	<%for (int i = 0; i < user1.projCodesMenu.size(); i++)
+        		{ %>
+            	<tr class="<%=user1.projCodesMenu.get(i)%>">
+            		<td><%=user1.projCodesMenu.get(i)%></td>
+            		<td><input style="width: 60px" value=""/></td>
+            		<td><input style="width: 60px" value=""/></td>
+            		<td><input style="width: 60px" value="" disabled/></td>
+            		<td><input style="width: 60px" value=""/></td>
+            		<td><input style="width: 60px" value=""/></td>
+            		<td><input style="width: 60px" value=""/></td>
+            		<td><input style="width: 60px" value=""/></td>
+            		<td><input style="width: 60px" value=""/></td>
+            		<td><input style="width: 60px" value="" disabled/></td>
+            		
+            	</tr>
+			<%
+        		}
+       		%>
         </tbody>
         <tfoot>
 	    	<td>
@@ -373,19 +386,8 @@
       
       		
     </div>
-      		
-      		
-                       
-      
       </div>   
-    
-    
-    
-
   </div><!-- ends center page -->
-
-        
-  
   </div>
          <div class="panel panel-default" id="footer">
 		<p> IST 440 Group 1 Spring 2015 </p>

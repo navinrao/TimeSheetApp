@@ -105,13 +105,15 @@ public class Projects {
 				}
 				// System.out.print(nextProject);
 				// adds timesheet.jsp history table data from all records for each day of the week for each project code
+				System.out.println(dayOfWeekIndex);
 				weeklyProjects.get(projCodeIndex-1).setStartTime(dayOfWeekIndex, startTime);
 				System.out.print(weeklyProjects.get(projCodeIndex-1).getStartTime(dayOfWeekIndex));
 				weeklyProjects.get(projCodeIndex-1).setEndTime(dayOfWeekIndex, endTime);
-				//System.out.print(weeklyProjects.get(projCodeIndex-1).getEndTime(dayOfWeekIndex));
+				System.out.print(weeklyProjects.get(projCodeIndex-1).getEndTime(dayOfWeekIndex));
 				weeklyProjects.get(projCodeIndex-1).setDailyTotalHours(dayOfWeekIndex, totalHours);
-				//System.out.print(weeklyProjects.get(projCodeIndex-1).getDailyTotalHours(dayOfWeekIndex) + "\n");
+				System.out.print(weeklyProjects.get(projCodeIndex-1).getDailyTotalHours(dayOfWeekIndex) + "\n");
 				weeklyProjects.get(projCodeIndex-1).setIsRecord(dayOfWeekIndex);
+				
 			}
 			rs.close();
                         setGrandTotalHours();

@@ -283,8 +283,6 @@
 	
 </table>
 
-
-
 <nav class="navbar navbar-info">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -298,7 +296,13 @@
          <li><a href="#">Profile</a></li>
         <li><a href="#">About Us</a></li>
       </ul>
-    </div>
+          
+          <input type="text" id="revision" size ="5" >
+          
+   
+      
+      
+    </div> 
   </div>
 </nav>
   
@@ -375,20 +379,41 @@
       		
       		
       <div class="form-group" >        
-      <div class="col-sm-offset-1 col-sm-2">
+      	<div class="col-sm-offset-1 col-sm-2">
       
         <button type="submit" class="btn btn-lg btn-info btn-block">Submit</button>
-        </div>
-        <div class="col-sm-offset-1 col-sm-2">
-        <button type="submit" class="btn btn-lg btn-info btn-block">Save</button>
-      </div>
+	        </div>
+	        	<div class="col-sm-offset-1 col-sm-2">
+	    			<button type="submit" class="btn btn-lg btn-info btn-block">Save</button>
+	     	 </div>
+			      
+			      <div>
+			      	<div class="col-sm-offset-1 col-sm-2">
+			      		<a href="#" class="btn btn-info btn-lg">
+         				 	<span class="glyphicon glyphicon-fast-backward"></span>
+       					</a>	
+			      	</div>
+			      </div>
+     
+     				
+     
+     
+     
+	      		<div>
+	      			<div class="col-sm-offset-1 col-sm-2">
+			      	  <a href="#" class="btn btn-info btn-lg">
+			          	<span class="glyphicon glyphicon-fast-forward"></span> 
+	        		 </a>
+	      			</div>
+	      		</div>
+      
       </div>
       
       		
     </div>
       </div>   
   </div><!-- ends center page -->
-  </div>
+
          <div class="panel panel-default" id="footer">
 		<p> IST 440 Group 1 Spring 2015 </p>
 		</div>

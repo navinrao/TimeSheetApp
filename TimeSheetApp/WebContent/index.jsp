@@ -61,19 +61,20 @@ try {
 		    	 String error= " Your UserName or Password is incorrect Please try again. ";
 		    			
 		    			
-		    			System.out.println(error);
+		    			//System.out.println(error);
 		    			
 		    			//response.sendRedirect("login.jsp");
 		    			
-		    			String option[] ={"OK", "CANCEL"};
-		    			int status = JOptionPane.showOptionDialog(null, error, "Login Error", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
-		    			if(status==JOptionPane.OK_OPTION)
+		    			//String option[] ={"OK", "CANCEL"};
+		    			//int status = JOptionPane.showOptionDialog(null, error, "Login Error", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
+		    			//if(//status==JOptionPane.OK_OPTION)
+		    			if(UserName == null || UserName =="")
 		    			{
 		    				response.sendRedirect("login.jsp");
 		    			}
 		    			else
 		    			{
-		    				response.sendRedirect("http://www.abington.psu.edu/");
+		    				response.sendRedirect("welcome.jsp");
 		    			}
 
 		    }

@@ -30,7 +30,7 @@
 
 
 
-</script>
+
 
 
 </head>
@@ -81,11 +81,11 @@
   
 		  <!-- Here is the center of the page -->
 		  
- <form class="form-horizontal"  data-toggle="validator"  role="form" action="addEmp.jsp" method="post" >
+ <form class="form-horizontal"   role="form" action="addEmp.jsp" method="post" >
     <div class="form-group">
       <label class="control-label col-sm-2" for="empid">EmpID:</label>
       <div class="col-sm-5">
-        <input type="number" class="form-control" name="empid" required>
+        <input type="text" class="form-control" name="empid" required>
       </div>
     </div>
     <div class="form-group">
@@ -115,7 +115,7 @@
     <div class="form-group">
       <label class="control-label col-sm-2" for="ssn">SSN:</label>
       <div class="col-sm-5">          
-        <input type="number" class="form-control" name="ssn" >
+        <input type="text" class="form-control" name="ssn" >
       </div>
     </div>
     
@@ -150,7 +150,7 @@
         <div class="form-group">
       <label class="control-label col-sm-2" for="username">User Name:</label>
       <div class="col-sm-5">          
-        <input type="text" pattern="^([_A-z0-9]){3,}$" maxlength="10" class="form-control" name="username" required>
+        <input type="text" class="form-control" name="username" required>
       </div>
     </div>
     
@@ -191,17 +191,6 @@
         <input type="text" class="form-control" name="delete" placeholder="Deleted On" readonly>
       </div>
     </div>
-    
-    
-   <!--   <div class="form-group"> -->
-     <!--  <label class="control-label col-sm-2" for="emptype">Employee Type:</label> -->
-       <!-- <div class="col-sm-5">          
-        <!-- <input type="checkbox" class="checkbox-inline" id="sal" Value=""> Salary -->
-        <!-- <input type="checkbox" class="checkbox-inline" id="hrly" Value=""> Hourly -->
-        <!-- <input type="checkbox" class="checkbox-inline" id="prt" Value=""> Part Time -->
-        <!-- <input type="checkbox" class="checkbox-inline" id="intrn" Value=""> Intern -->
-      <!-- </div> -->
-    <!-- </div> -->
     
 
     

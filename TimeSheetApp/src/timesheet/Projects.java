@@ -13,25 +13,27 @@ public class Projects {
 	public final String empID; // stores the current session's user's empID for database connection
 	public int projCodeIndex = 0;
 	public int dayOfWeekIndex = 0;
-	public int totalRows; // stores the total number of possible project code rows that need to be added to timesheet.jsp interface
+	public int totalRows= 0; // stores the total number of possible project code rows that need to be added to timesheet.jsp interface
 	public int totalMenuOptions; // stores the total number of add project drop down menu options
 	public ArrayList<Project> weeklyProjects  = new ArrayList<>(); // initializes a weeklyProjects ArrayList for the current user
 	public ArrayList<String> projCodesMenu = new ArrayList<>(); // initializes a String ArrayList of unused Project Codes accessible by the user via the timesheet.jsp interface Add Project drop down menu
+	public ArrayList<String> projCodesRows;
 	public Date weekBeginsOn; // stores the date representing the beginning of the target week for the timesheet.jsp
 	public Date weekEndsOn; // stores the date representing the ending of the target week for the timesheet.jsp
 	public double grandTotalHours = 0; // stores the grand total of hours for all days of the week within each project code
+	public ArrayList<String> projCodesRow = new ArrayList<>();
 	// CORRECT FOR LATER STAGES: public Projects (String theEmpID, Date theWeekBegins, Date theWeekEnds) {
 	public Projects (String theEmpID) {
 		empID = theEmpID;		
 		getWeeklyProjectsData();
 	}
 	
-        public Projects (String theEmpID, Date theWeekBegins, Date theWeekEnds) {
-                empID = theEmpID;
-                weekBeginsOn = theWeekBegins;
-                weekEndsOn = theWeekEnds;
-                getWeeklyProjectsData();
-        }
+    public Projects (String theEmpID, Date theWeekBegins, Date theWeekEnds) {
+            empID = theEmpID;
+            weekBeginsOn = theWeekBegins;
+            weekEndsOn = theWeekEnds;
+            getWeeklyProjectsData();
+    }
         
 	public void addProject(String theProjCode) {
 		weeklyProjects.add(new Project(theProjCode));
@@ -72,8 +74,12 @@ public class Projects {
 			while (rs.next())  
 			{			
 				projCodesMenu.add(rs.getString("project_code"));
+				projCodesRow.add(rs.getString("project_code"));
+
 				totalRows++;
 			}
+			
+			projCodesRows = (ArrayList<String>) projCodesMenu.clone();
 			rs.close();
 			// Counts how many different project codes an emp_id has records for in the timesheet history table
 			// SQL = "SELECT COUNT(DISTINCT project_code) FROM [ist440grp1sp15].[timesheet].[history] WHERE employee_id = 'mas1234' AND expiration_date IS null AND weekday_date >= '2015-03-22' AND weekday_date < '2015-03-29'";
@@ -116,7 +122,10 @@ public class Projects {
 				
 			}
 			rs.close();
-                        setGrandTotalHours();
+			
+			for (int project = 0; project < weeklyProjects.size(); weeklyProjects.get(project).setWeeklyTotalHours(), project++) {}
+			
+            setGrandTotalHours();
 		}
 		catch(SQLException se){
 			//Handle errors for JDBC

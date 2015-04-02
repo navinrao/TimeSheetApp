@@ -48,15 +48,18 @@ public class Project {
 	}
 	
 	public double getWeeklyTotalHours () { // 0 thru 6 OR Sunday Monday Tuesday Wednesday Thursday Friday Saturday
-                for (day = 0; day < 6; weeklyTotalHours += dailyTotalHours[day], day++) {}
-                return weeklyTotalHours;
-        }
-        
-        public void setIsRecord (int theDay) {
-                isRecord[theDay] = true;
-        }
-        
-        public boolean getIsRecord (int theDay) {
-                return isRecord[theDay];
-        }
+		return weeklyTotalHours;
+    }
+    
+	public void setWeeklyTotalHours () { // 0 thru 6 OR Sunday Monday Tuesday Wednesday Thursday Friday Saturday
+        for (day = 0; day < 6; weeklyTotalHours += dailyTotalHours[day], day++) {}
+	}
+	
+    public void setIsRecord (int theDay) {
+            isRecord[theDay] = true;
+    }
+    
+    public boolean getIsRecord (int theDay) {
+            return isRecord[theDay];
+    }
 }

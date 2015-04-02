@@ -36,7 +36,7 @@
 	if(session.getAttribute("UserName")== null)
 	response.sendRedirect("login.jsp");
 	
-	Projects user1 = new Projects("1");
+	Projects user1 = new Projects("mas1234");
 	
 	//int day = integer value of any day of the week button clicked by user to populate start and end times
 /*     for (int projects = 0; projects < user1.weeklyProjects.size(); projects++) {
@@ -53,7 +53,32 @@
         	if($(this).attr("class"))
             	$(this).hide();
         });
-                
+       
+        $(".start_time").each(function(index) {
+        	$(".start_0").hide();
+        	$(".start_2").hide();
+        	$(".start_3").hide();
+        	$(".start_4").hide();
+        	$(".start_5").hide();
+        	$(".start_6").hide();
+
+        });
+        
+        $(".end_time").each(function(index) {
+        	$(".end_0").hide();
+        	$(".end_2").hide();
+        	$(".end_3").hide();
+        	$(".end_4").hide();
+        	$(".end_5").hide();
+        	$(".end_6").hide();
+
+        	}); 
+        
+        $(".start_1").show();
+        $(".start_1").show();
+
+        
+        
         (function populateDates() {
             var today = new Date();     // holds the current date
             var dayOfTheWeek = today.getDay();  // holds the day of the week (from 0-6)
@@ -255,6 +280,10 @@
             }
         });
     }
+    
+    var showTimes = function(btn) {
+    	
+    }
     </script>
 </head>
 <body>
@@ -320,12 +349,12 @@
             <th>End</th>
             <th><button onclick="selectColumn(this)">Sun</button></th>
             <!--The button inner HTML below corresponds to JS code in selectColumn method-->
-            <th><button onclick="selectColumn(this)">Mon</button></th>
-            <th><button onclick ="selectColumn(this)">Tues</button></th>
-            <th><button onclick="selectColumn(this)">Wed</button></th>
-            <th><button onclick="selectColumn(this)">Thurs</button></th>
-            <th><button onclick="selectColumn(this)">Fri</button></th>
-            <th><button onclick="selectColumn(this)">Sat</button></th>
+            <th><button onclick="showTimes(this)">Mon</button></th>
+            <th><button onclick ="showTimes(this)">Tues</button></th>
+            <th><button onclick="showTimes(this)">Wed</button></th>
+            <th><button onclick="showTimes(this)">Thurs</button></th>
+            <th><button onclick="showTimes(this)">Fri</button></th>
+            <th><button onclick="showTimes(this)">Sat</button></th>
             <th>TOTAL</th>
           </tr>
 		  <tr>
@@ -342,13 +371,72 @@
             <th id="6" class="date"></th>
 		  </tr>
         </thead>
-        <tbody>
+     	<tbody>
+			<% for (int project = 0; project < user1.weeklyProjects.size(); project++) {
+				//THE TABLE ROW STRUCTURE (11 TOTAL CELLS [9 LABELS & 14 INPUT BOXES])### %>
+				<tr id ="<%=user1.weeklyProjects.get(project).getProjectCode()%>">
+				
+				<!--  ***PROJECT CODE (1 CELL)*** -->
+				<td><label><%=user1.weeklyProjects.get(project).getProjectCode()%></label></td>
+				
+				<!--  ***START TIME (1 CELL)*** [one input box].show() based on today's date from java class or getDate().getDay() -->
+				
+				<td class="start_time">
+					<input type="text" disabled value="<%=user1.weeklyProjects.get(project).getStartTime(0)%>" style="display:none;"/>	<!-- Sunday -->
+					<%for (int day = 1; day < 6; day++) { %>
+						<input type="text" class="start_<%=day %>" value="<%=user1.weeklyProjects.get(project).getStartTime(day)%>" />		<!-- Monday to Friday -->
+					<%}%>
+					<input type="text" disabled value="<%=user1.weeklyProjects.get(project).getStartTime(6)%>" style="display:none;"/>	<!-- Saturday -->
+				</td>
+				
+				<!-- ***END TIME (1 CELL)*** [one input box].show() based on today's date from java class or getDate().getDay() -->
+	
+				<td class="end_time">
+					<input type="text" disabled value="<%=user1.weeklyProjects.get(project).getEndTime(0)%>" style="display:none;"/>  <!-- Sunday -->
+					<%for (int day = 1; day < 6; day++) { %>
+						<input type="text" class="end_<%=day %>" value="<%=user1.weeklyProjects.get(project).getEndTime(day)%>" />	<!-- Monday to Friday -->
+					<%}%>
+					<input type="text" disabled value="<%=user1.weeklyProjects.get(project).getEndTime(6)%>" style="display:none;"/> <!-- Saturday -->
+				</td>
+				
+				
+				<!--  ***TOTAL HOURS (7 CELLS)*** -->
+				
+				<td class="total_0"> <label><%=user1.weeklyProjects.get(project).getDailyTotalHours(0)%> </label> </td> <!-- [DISABLED]	//SUNDAY  -->
+				<%for (int day = 1 ; day < 6; day++) { %>
+					<td class="total_day"> <label><%=user1.weeklyProjects.get(project).getDailyTotalHours(day)%> </label></td>	<!-- //MONDAY-FRIDAY -->
+				<%} %>
+				<td class="total_6"> <label><%=user1.weeklyProjects.get(project).getDailyTotalHours(6)%> </label></td> <!-- [DISABLED]	//SATURDAY -->
+					
+				<!-- ***WEEKLY TOTAL HOURS (1 CELL)*** -->
+				
+				<td><label><%=user1.weeklyProjects.get(project).getWeeklyTotalHours() / 2%> </label></td> 		<!-- //SUNDAY-SATURDAY -->
+			<%}%>
+			</tr>
+		</tbody>
+<%--         <tbody>
         	<%for (int i = 0; i < user1.projCodesMenu.size(); i++)
         		{ %>
             	<tr class="<%=user1.projCodesMenu.get(i)%>">
-            		<td><%=user1.projCodesMenu.get(i)%></td>
-            		<td><input style="width: 60px" value=""/></td>
-            		<td><input style="width: 60px" value=""/></td>
+            		<td><%=user1.projCodesMenu.get(i)%></td>		<!-- Displays project code name (ex: abc6) from DB in first cell of row -->
+            		
+            		<!-- 5 startTime input tags (are hidden)-->
+            		<td class="startTime"><input style="width: 60px" value=""/></td>
+            		<td class="startTime"><input style="width: 60px" value=""/></td>
+            		<td class="startTime"><input style="width: 60px" value=""/></td>
+            		<td class="startTime"><input style="width: 60px" value=""/></td>
+            		<td class="startTime"><input style="width: 60px" value=""/></td>
+
+            		
+            		<!-- 5 endTime input tags (are hidden)-->
+            		<td class="endTime"><input style="width: 60px" value=""/></td>
+            		<td class="endTime"><input style="width: 60px" value=""/></td>
+            		<td class="endTime"><input style="width: 60px" value=""/></td>
+            		<td class="endTime"><input style="width: 60px" value=""/></td>
+            		<td class="endTime"><input style="width: 60px" value=""/></td>
+
+
+            		<!-- cells in table for days Sunday to Saturday -->
             		<td><input style="width: 60px" value="" disabled/></td>
             		<td><input style="width: 60px" value=""/></td>
             		<td><input style="width: 60px" value=""/></td>
@@ -361,20 +449,16 @@
 			<%
         		}
        		%>
-        </tbody>
+        </tbody> --%>
         <tfoot>
 	    	<td>
 				<select id ="project" onchange="addProject(this)">
 				</select>
-            </td>
-            
-           
-            
+            </td> 
         </tfoot>
-        
-        
       </table>
-      		
+      		<!--  /////////////////////////////////////////////////////////////////////////////// -->
+
       		<!-- this starts button div -->
       		
       		

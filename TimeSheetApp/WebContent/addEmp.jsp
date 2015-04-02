@@ -20,19 +20,20 @@
 <%@ page import= "java.sql.Connection" %>
 <%@ page import= "java.sql.DriverManager" %>
 <%@ page import="javax.swing.*" %>
+<%@ page import= "java.security.*" %>
 
 
 <%
 
-int empId =Integer.parseInt(request.getParameter("empid"));
+String empId = request.getParameter("empid");
 String first = request.getParameter("fname");
 String middle = request.getParameter("middle");
 String last = request.getParameter("lname");
-String social = request.getParameter("ssn");
+int social = Integer.parseInt(request.getParameter("ssn"));
 String date_birth = request.getParameter("dob");
 String oreintation = request.getParameter("gender");
-String man_Id = request.getParameter("manager");
-String emp_title = request.getParameter("title");
+int man_Id = Integer.parseInt(request.getParameter("manager"));
+int emp_title = Integer.parseInt(request.getParameter("title"));
 String user_name = request.getParameter("username");
 String pass_word = request.getParameter("password");
 String date_hire = request.getParameter("doh");
@@ -54,14 +55,37 @@ String del_date = request.getParameter("delete");
             "password=ist440grp1sp15"; 
 Connection con;
 try {
+	
+				
+				//Begin to hash the new employee password
+			    String generatedPassword = null; // create variable to store the hashed value of password
+			    MessageDigest md = MessageDigest.getInstance("SHA1"); // creates an instance of message digest from java.security class
+			    //Add password bytes to digest
+			    md.update(pass_word.getBytes());
+			    //Get the hash's bytes
+			    byte[] bytes = md.digest();
+			    //This bytes[] has bytes in decimal format;
+			    //Convert it to hexadecimal format
+			    StringBuilder sb = new StringBuilder();
+			    for(int i=0; i< bytes.length ;i++)
+			    {
+			        sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+			    }
+			    //Get complete hashed password in hex format
+				generatedPassword = sb.toString();
+				System.out.println(generatedPassword); //variable used to pass hashed data into the database
+
+	
+	
+	
 	con = DriverManager.getConnection(connectionUrl);
 	// Create and execute an SQL statement that returns some data.  
 		//String SQL = "SELECT * FROM timesheet.login where UserName = 'mas6462'";
 	
 	//"SET IDENTITY_INSERT timesheet.employees ON " 
-		String SQL = "SET IDENTITY_INSERT timesheet.employees ON " + "INSERT INTO timesheet.employees(employee_id, first_name, middle_name, last_name, ssn, dob, gender,"
+		String SQL = "INSERT INTO timesheet.employees(employee_id, first_name, middle_name, last_name, ssn, dob, gender,"
 				+ "manager_id, job_title_id, username_ts, password_ts, hire_date, term_date, create_date, delete_date)"
-				+"VALUES('" + empId + "', '" + first + "', '" + middle + "', '" + last + "', '" + social + "', '" + date_birth + "', '" + oreintation + "', '" + man_Id + "', '" + emp_title + "', '" + user_name + "', '" + pass_word + "', '" + date_hire + "', '" + date_term + "', '" + create_date + "', '" + del_date + "');";
+				+"VALUES('" + empId + "', '" + first + "', '" + middle + "', '" + last + "', '" + social + "', '" + date_birth + "', '" + oreintation + "', '" + man_Id + "', '" + emp_title + "', '" + user_name + "', '" + generatedPassword + "', '" + date_hire + "', '" + date_term + "', '" + create_date + "', '" + del_date + "');";
 				
 				
 	//String SQL = //"SET IDENTITY_INSERT timesheet.employees ON " + "INSERT INTO timesheet.employees(employee_id, create_date) VALUES(5, 2012-01-01)";			

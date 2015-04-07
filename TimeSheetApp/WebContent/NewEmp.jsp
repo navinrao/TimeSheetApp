@@ -219,7 +219,10 @@
   
   </div>
          <div class="panel panel-default" id="footer">
-		<p> IST 440 Group 1 Spring 2015 </p>
+			<p> IST 440 Group 1 Spring 2015 </p>
+			<p> Professor: Taghi Ozbeki </p>
+		
+
 		</div>
 
 

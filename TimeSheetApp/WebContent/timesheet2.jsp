@@ -38,44 +38,27 @@
 	
 	Projects user1 = new Projects("mas1234");
 	
-	//int day = integer value of any day of the week button clicked by user to populate start and end times
-/*     for (int projects = 0; projects < user1.weeklyProjects.size(); projects++) {
-         user1.weeklyProjects.get(projects).getStartTime(day);
-         user1.weeklyProjects.get(projects).getEndTime(day);
-    } */
 	%>
     $(document).ready(function () {
         // Populates dates below days on document load
        // alert("Document Ready Function Run");	// Lets us know everytime the DOM is reloaded
         
         // Hides all rows with the class attribute (all rows with project codes have a class attribute)
-        $("tr").each(function(index) {
+/*         $("tr").each(function(index) {
         	if($(this).attr("class"))
             	$(this).hide();
-        });
+        }); */
        
         $(".start_time").each(function(index) {
-        	$(".start_0").hide();
-        	$(".start_2").hide();
-        	$(".start_3").hide();
-        	$(".start_4").hide();
-        	$(".start_5").hide();
-        	$(".start_6").hide();
-
+        	$(this).children().hide();			// hides all nested start_time elements in start time cell
         });
         
         $(".end_time").each(function(index) {
-        	$(".end_0").hide();
-        	$(".end_2").hide();
-        	$(".end_3").hide();
-        	$(".end_4").hide();
-        	$(".end_5").hide();
-        	$(".end_6").hide();
-
+        	$(this).children().hide();			// hides all nested end_time elements in end time cell
         	}); 
         
         $(".start_1").show();
-        $(".start_1").show();
+        $(".end_1").show();
 
         
         
@@ -260,29 +243,66 @@
         $(":input").removeClass("selectedDay");    // removes any previously selected days (for timepicker)
     }
     /* If the user has selected a project, the day is selected for where the timepicker places hours worked */
-    var selectColumn = function (btn) {
+/*     var selectColumn = function (btn) {
         var selectedDay = btn.innerHTML;    // finds out which button was pressed
 
-        /* checks to see if any project has been selected*/
+        // checks to see if any project has been selected
         $("." + selectedDay).each(function (index) {
             if ($(this).parent().parent().hasClass("selected")) {
 
-                /* Deselects all columns */
+                // Deselects all columns 
                 $("." + selectedDay).each(function () {
                     $(this).css("background", "white");       // was #EEEEEE
                 });
 
-                /* Selects clicked on column only */
+                // Selects clicked on column only 
                 $(":input").removeClass("selectedDay");    // removes any previously selected days
                 $(this).removeClass("unselectedDay").addClass("selectedDay");
                 $(this).css("background", "#0CF25D");   // makes it green
                 return;
             }
         });
-    }
+    } */
     
     var showTimes = function(btn) {
-    	
+        var day = btn.innerHTML;    // finds out which button was pressed
+
+        $(".start_time").each(function(index) {
+        	$(this).children().hide();			// hides all nested start_time elements in start time cell
+        });
+        
+        $(".end_time").each(function(index) {
+        	$(this).children().hide();			// hides all nested end_time elements in end time cell
+        	}); 
+        
+        if (day == "Sun"){
+        	$(".start_0").show();
+        	$(".end_0").show();
+        }
+        else if (day == "Mon"){
+        	$(".start_1").show();
+        	$(".end_1").show();
+        }
+        else if (day == "Tues"){
+        	$(".start_2").show();
+        	$(".end_2").show();
+        }
+        else if (day == "Wed"){
+        	$(".start_3").show();
+        	$(".end_3").show();
+        }
+        else if (day == "Thurs"){
+        	$(".start_4").show();
+        	$(".end_4").show();
+        }
+        else if (day == "Fri"){
+        	$(".start_5").show();
+        	$(".end_5").show();
+        }
+        else if (day == "Sat"){
+        	$(".start_6").show();
+        	$(".end_6").show();
+        }
     }
     </script>
 </head>
@@ -322,7 +342,7 @@
         <li class="active"><a href="welcome.jsp">Home</a></li>
         <li><a href="timesheet.jsp">Time Sheet</a></li>
         <li><a href="NewEmp.jsp">New Employee</a></li>
-         <li><a href="#">Profile</a></li>
+         <li><a href="addproj.jsp">Projects</a></li>
         <li><a href="#">About Us</a></li>
       </ul>
           
@@ -347,7 +367,7 @@
             <th>Project Code</th>
             <th>Start</th>
             <th>End</th>
-            <th><button onclick="selectColumn(this)">Sun</button></th>
+            <th><button onclick="showTimes(this)">Sun</button></th>
             <!--The button inner HTML below corresponds to JS code in selectColumn method-->
             <th><button onclick="showTimes(this)">Mon</button></th>
             <th><button onclick ="showTimes(this)">Tues</button></th>
@@ -382,21 +402,21 @@
 				<!--  ***START TIME (1 CELL)*** [one input box].show() based on today's date from java class or getDate().getDay() -->
 				
 				<td class="start_time">
-					<input type="text" disabled value="<%=user1.weeklyProjects.get(project).getStartTime(0)%>" style="display:none;"/>	<!-- Sunday -->
+					<input type="text" class="start_0" disabled value="<%=user1.weeklyProjects.get(project).getStartTime(0)%>"/>	<!-- Sunday -->
 					<%for (int day = 1; day < 6; day++) { %>
 						<input type="text" class="start_<%=day %>" value="<%=user1.weeklyProjects.get(project).getStartTime(day)%>" />		<!-- Monday to Friday -->
 					<%}%>
-					<input type="text" disabled value="<%=user1.weeklyProjects.get(project).getStartTime(6)%>" style="display:none;"/>	<!-- Saturday -->
+					<input type="text" class="start_6" disabled value="<%=user1.weeklyProjects.get(project).getStartTime(6)%>"/>	<!-- Saturday -->
 				</td>
 				
 				<!-- ***END TIME (1 CELL)*** [one input box].show() based on today's date from java class or getDate().getDay() -->
 	
 				<td class="end_time">
-					<input type="text" disabled value="<%=user1.weeklyProjects.get(project).getEndTime(0)%>" style="display:none;"/>  <!-- Sunday -->
+					<input type="text" class="end_0" disabled value="<%=user1.weeklyProjects.get(project).getEndTime(0)%>" />  <!-- Sunday -->
 					<%for (int day = 1; day < 6; day++) { %>
 						<input type="text" class="end_<%=day %>" value="<%=user1.weeklyProjects.get(project).getEndTime(day)%>" />	<!-- Monday to Friday -->
 					<%}%>
-					<input type="text" disabled value="<%=user1.weeklyProjects.get(project).getEndTime(6)%>" style="display:none;"/> <!-- Saturday -->
+					<input type="text" class="end_6" disabled value="<%=user1.weeklyProjects.get(project).getEndTime(6)%>"/> <!-- Saturday -->
 				</td>
 				
 				
@@ -462,34 +482,32 @@
       		<!-- this starts button div -->
       		
       		
-      <div class="form-group" >        
-      	<div class="col-sm-offset-1 col-sm-2">
+	<div class="form-group" >        
+		<div class="col-sm-offset-1 col-sm-2">
       
         <button type="submit" class="btn btn-lg btn-info btn-block">Submit</button>
-	        </div>
-	        	<div class="col-sm-offset-1 col-sm-2">
-	    			<button type="submit" class="btn btn-lg btn-info btn-block">Save</button>
-	     	 </div>
+        </div>
+        
+       	<div class="col-sm-offset-1 col-sm-2">
+ 			<button type="submit" class="btn btn-lg btn-info btn-block">Save</button>
+     	 </div>
 			      
-			      <div>
-			      	<div class="col-sm-offset-1 col-sm-2">
-			      		<a href="#" class="btn btn-info btn-lg">
-         				 	<span class="glyphicon glyphicon-fast-backward"></span>
-       					</a>	
-			      	</div>
-			      </div>
-     
-     				
+      	<div>
+      		<div class="col-sm-offset-1 col-sm-2">
+      		<a href="#" class="btn btn-info btn-lg">
+    		<span class="glyphicon glyphicon-fast-backward"></span>
+ 			</a>	
+	      	</div>
+		</div>
      
      
-     
-	      		<div>
-	      			<div class="col-sm-offset-1 col-sm-2">
-			      	  <a href="#" class="btn btn-info btn-lg">
-			          	<span class="glyphicon glyphicon-fast-forward"></span> 
-	        		 </a>
-	      			</div>
-	      		</div>
+  		<div>
+  			<div class="col-sm-offset-1 col-sm-2">
+    	  <a href="#" class="btn btn-info btn-lg">
+        	<span class="glyphicon glyphicon-fast-forward"></span> 
+    		 </a>
+  			</div>
+  		</div>
       
       </div>
       
@@ -498,9 +516,10 @@
       </div>   
   </div><!-- ends center page -->
 
+       </div>
          <div class="panel panel-default" id="footer">
 		<p> IST 440 Group 1 Spring 2015 </p>
-		<p> Professor: Taghi Ozbeki </p>
+		<p> Professor: Taghi Ozbeki </p>	
 		</div>
 
 

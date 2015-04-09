@@ -69,7 +69,7 @@
         <li class="active"><a href="welcome.jsp">Home</a></li>
         <li><a href="timesheet2.jsp">Time Sheet</a></li>
         <li><a href="NewEmp.jsp">New Employee</a></li>
-        <li><a href="#">Profile</a></li>
+        <li><a href="addproj.jsp">Projects</a></li>
         <li><a href="#">About Us</a></li>
       </ul>
     </div>

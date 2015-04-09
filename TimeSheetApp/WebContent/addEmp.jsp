@@ -1,13 +1,12 @@
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 	<%
-	
-		request.getSession(true);
-		if(session.getAttribute("UserName")== null)
-		response.sendRedirect("login.jsp");
+	request.getSession(true);
+	//if(session.getAttribute("UserName")== null)
+	//response.sendRedirect("login.jsp");
 	%>
-
 
 <html>
 <head>
@@ -25,11 +24,16 @@
 
 <%
 
+
+if(session.getAttribute("UserName") != null)
+	{
 String empId = request.getParameter("empid");
 String first = request.getParameter("fname");
 String middle = request.getParameter("middle");
 String last = request.getParameter("lname");
+
 int social = Integer.parseInt(request.getParameter("ssn"));
+
 String date_birth = request.getParameter("dob");
 String oreintation = request.getParameter("gender");
 int man_Id = Integer.parseInt(request.getParameter("manager"));
@@ -42,12 +46,6 @@ String create_date = request.getParameter("create");
 String del_date = request.getParameter("delete");
 
 
-
-
-//if(username.equals("mas6462") && password.equals("pass"))
-//{
-	//session.setAttribute("username", username);
-	//System.out.println("Success");
 	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
     String connectionUrl = "jdbc:sqlserver://oz-ist-iissql.abington.psu.edu;" + 
             "database=ist440grp1sp15;" + 
@@ -95,6 +93,8 @@ try {
 	//System.out.println("Record for " + first + last + "has been added: ");
 	//response.sendRedirect("NewEmp.jsp");
 	
+
+	
 	 String confirm= " A record for " + first + last + " has been created" + "\n" + " Would you like to add another? " ; 		
 	//response.sendRedirect("login.jsp");
 		
@@ -109,14 +109,17 @@ try {
 			response.sendRedirect("welcome.jsp");
 		}
 }
+
+	
+
 catch (SQLException e) 
 		{
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-	
-	
 		} 
 
+	}//end of if for sessions
+	response.sendRedirect("login.jsp");
 %>
 
 </body>

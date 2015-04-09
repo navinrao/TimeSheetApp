@@ -27,6 +27,7 @@ public class Project {
 	public void setStartTime (int theDay, Time theTime) {
 		startTime[theDay] = theTime;
 	}
+	
 	public Time getEndTime (int theDay) {
 		return endTime[theDay];
 	}
@@ -36,15 +37,15 @@ public class Project {
 	}
 	
 	public void calculateDailyTotalHours (int theDay) {
-                dailyTotalHours[theDay] = (double) (getEndTime(theDay).getTime() - getStartTime(theDay).getTime()) / 360000.0;
+        dailyTotalHours[theDay] = (double) (getEndTime(theDay).getTime() - getStartTime(theDay).getTime()) / 360000.0;
 	}
 
 	public double getDailyTotalHours (int theDay) {
-                return dailyTotalHours[theDay];
+        return dailyTotalHours[theDay];
 	}
 	
 	public void setDailyTotalHours (int theDay, double theTotalHours) {
-                dailyTotalHours[theDay] = theTotalHours;
+        dailyTotalHours[theDay] = theTotalHours;
 	}
 	
 	public double getWeeklyTotalHours () { // 0 thru 6 OR Sunday Monday Tuesday Wednesday Thursday Friday Saturday
@@ -52,14 +53,14 @@ public class Project {
     }
     
 	public void setWeeklyTotalHours () { // 0 thru 6 OR Sunday Monday Tuesday Wednesday Thursday Friday Saturday
-        for (day = 0; day < 6; weeklyTotalHours += dailyTotalHours[day], day++) {}
+        for (day = 0; day < 7; weeklyTotalHours += dailyTotalHours[day], day++) {}
 	}
 	
     public void setIsRecord (int theDay) {
-            isRecord[theDay] = true;
+        isRecord[theDay] = true;
     }
     
     public boolean getIsRecord (int theDay) {
-            return isRecord[theDay];
+        return isRecord[theDay];
     }
 }

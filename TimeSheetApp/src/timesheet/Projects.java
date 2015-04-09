@@ -17,25 +17,26 @@ public class Projects {
 	public int totalMenuOptions; // stores the total number of add project drop down menu options
 	public ArrayList<Project> weeklyProjects  = new ArrayList<>(); // initializes a weeklyProjects ArrayList for the current user
 	public ArrayList<String> projCodesMenu = new ArrayList<>(); // initializes a String ArrayList of unused Project Codes accessible by the user via the timesheet.jsp interface Add Project drop down menu
-	public ArrayList<String> projCodesRows;
+	public ArrayList<String> projCodesRows = new ArrayList<>();
 	public Date weekBeginsOn; // stores the date representing the beginning of the target week for the timesheet.jsp
 	public Date weekEndsOn; // stores the date representing the ending of the target week for the timesheet.jsp
-	public double grandTotalHours = 0; // stores the grand total of hours for all days of the week within each project code
+	public double[] dailySubTotalHours = new double[7]; // stores the sub total for the daily total hours of each project on a specific day
+	public double weeklyGrandTotalHours = 0; // stores the grand total of hours for all days of the week within each project code
 	public ArrayList<String> projCodesRow = new ArrayList<>();
 	// CORRECT FOR LATER STAGES: public Projects (String theEmpID, Date theWeekBegins, Date theWeekEnds) {
 	public Projects (String theEmpID) {
 		empID = theEmpID;		
-		getWeeklyProjectsData();
+		setWeeklyProjectsHistory();
 	}
 	
     public Projects (String theEmpID, Date theWeekBegins, Date theWeekEnds) {
-            empID = theEmpID;
-            weekBeginsOn = theWeekBegins;
-            weekEndsOn = theWeekEnds;
-            getWeeklyProjectsData();
+        empID = theEmpID;
+        weekBeginsOn = theWeekBegins;
+        weekEndsOn = theWeekEnds;
+        setWeeklyProjectsHistory();
     }
         
-	public void addProject(String theProjCode) {
+	public void addProject (String theProjCode) {
 		weeklyProjects.add(new Project(theProjCode));
 		updateProjCodesMenu(theProjCode);
 	}
@@ -55,7 +56,7 @@ public class Projects {
 	
 	// Gets data from the timesheet.history table and stores in all of the variables for each project in the weeklyProjects ArrayList
 
-	public void getWeeklyProjectsData(){
+	public void setWeeklyProjectsHistory(){
 		
 		String connectionUrl = "jdbc:sqlserver://oz-ist-iissql.abington.psu.edu;" + "database=ist440grp1sp15;" +  "user=ist440grp1sp15;" + "password=ist440grp1sp15"; 
 		Connection con = null;
@@ -67,19 +68,19 @@ public class Projects {
 			con = DriverManager.getConnection(connectionUrl);
 			System.out.println("Connected."); 
 			
-			SQL = "SELECT project_code FROM timesheet.projects";  
+			//SQL = "SELECT project_code FROM timesheet.projects WHERE manager_id = '" + getManagerID(empID) + "'";
+			SQL = "SELECT project_code FROM timesheet.projects";
 			stmt = con.createStatement();  
 			rs = stmt.executeQuery(SQL); 
 			
 			while (rs.next())  
 			{			
 				projCodesMenu.add(rs.getString("project_code"));
-				projCodesRow.add(rs.getString("project_code"));
-
+				projCodesRows.add(projCodesMenu.get(totalRows));
 				totalRows++;
 			}
 			
-			projCodesRows = (ArrayList<String>) projCodesMenu.clone();
+			//projCodesRows = (ArrayList<String>) projCodesMenu.clone();
 			rs.close();
 			// Counts how many different project codes an emp_id has records for in the timesheet history table
 			// SQL = "SELECT COUNT(DISTINCT project_code) FROM [ist440grp1sp15].[timesheet].[history] WHERE employee_id = 'mas1234' AND expiration_date IS null AND weekday_date >= '2015-03-22' AND weekday_date < '2015-03-29'";
@@ -123,9 +124,10 @@ public class Projects {
 			}
 			rs.close();
 			
-			for (int project = 0; project < weeklyProjects.size(); weeklyProjects.get(project).setWeeklyTotalHours(), project++) {}
+			for (int pIndex = 0; pIndex < weeklyProjects.size(); weeklyProjects.get(pIndex).setWeeklyTotalHours(), pIndex++) {}
 			
-            setGrandTotalHours();
+            setDailySubTotalHours();
+            setWeeklyGrandTotalHours();
 		}
 		catch(SQLException se){
 			//Handle errors for JDBC
@@ -152,12 +154,21 @@ public class Projects {
 			}//end finally try
 		}//end try
 	}
-        public void setGrandTotalHours () {
-                for (int project = 0; project < weeklyProjects.size(); grandTotalHours += weeklyProjects.get(project).getWeeklyTotalHours(), project++) {}
-        }
-        
-        public double getGrandTotalHours () {
-                return grandTotalHours;
-        }
-}
+	
+	public void setDailySubTotalHours () {
+		for (int day = 0; day < 7; dailySubTotalHours[day] = 0, day++) {} // initializes sub total hours at 0 for each day of the week
+		for (int day = 1; day < 6; day++) {for (int pIndex = 0; pIndex < weeklyProjects.size(); dailySubTotalHours[day] += weeklyProjects.get(pIndex).getDailyTotalHours(day), pIndex++) {}}
+	}
+	
+	public double getDailySubTotalHours (int theDay) {
+		return dailySubTotalHours[theDay];
+	}
 
+    public void setWeeklyGrandTotalHours () {
+        for (int pIndex = 0; pIndex < weeklyProjects.size(); weeklyGrandTotalHours += weeklyProjects.get(pIndex).getWeeklyTotalHours(), pIndex++) {}
+    }
+
+    public double getWeeklyGrandTotalHours () {
+        return weeklyGrandTotalHours;
+    }
+}

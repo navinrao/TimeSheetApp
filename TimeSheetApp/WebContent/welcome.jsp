@@ -1,8 +1,11 @@
 	<%
 
 	request.getSession(true);
-	if(session.getAttribute("UserName")== null)
-	response.sendRedirect("login.jsp");
+// 	if(session.getAttribute("UserName")== null)
+	
+// 		response.sendRedirect("login.jsp");
+	
+
 	%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>    
@@ -16,18 +19,25 @@
 
 <%
 	
+
 String UserName = request.getParameter("username");
 String PassWord = request.getParameter("password");
-String empID = "";
+String empID;
 
 
-		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        String connectionUrl = "jdbc:sqlserver://oz-ist-iissql.abington.psu.edu;" + 
-                "database=ist440grp1sp15;" + 
-                "user=ist440grp1sp15;" + 
-                "password=ist440grp1sp15"; 
-Connection con;
-try {
+session = request.getSession();
+session.setAttribute("UserName", UserName);
+if(session.getAttribute("UserName")!=null)
+{
+
+
+
+Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+String connectionUrl = "jdbc:sqlserver://oz-ist-iissql.abington.psu.edu;" + 
+        "database=ist440grp1sp15;" + 
+        "user=ist440grp1sp15;" + 
+        "password=ist440grp1sp15"; 
+Connection con;try {
 	
 	//String passwordToHash = "password";
     String generatedPassword = null;
@@ -47,7 +57,6 @@ try {
 	generatedPassword = sb.toString();
 	System.out.println(generatedPassword);
     
-    
 
 	
 	con = DriverManager.getConnection(connectionUrl);
@@ -60,41 +69,42 @@ try {
     ResultSet rs = stmt.executeQuery(SQL); 
     if(rs.next())
 		    {
-		    
-    		if(rs.getString(1).equals(UserName) && rs.getString(2).equals(generatedPassword))
-    			{
-		    		session=request.getSession();
-		    		session.setAttribute("UserName", UserName);
+		
+    		String databaseUsername = rs.getString("username_ts");
+    		String databasePassword = rs.getString("password_ts");
+    		if(databaseUsername.equals(UserName) && databasePassword.equals(generatedPassword))
+    			{	    
+
+		    		
 				   	System.out.println("Welcome: " + UserName);
 				    System.out.println("Connected.");
-				    System.out.println(rs.getString("username_ts"));
+				    System.out.println(databaseUsername);
 				    empID = rs.getString("employee_id");
 				    System.out.println(empID);
 				   
-				    response.sendRedirect("welcome.jsp");
-				    rs.close();
+				    //response.sendRedirect("welcome.jsp");
+				    
 		   
     			}
-	    	
+    		rs.close();
     		}
- 
 	}
 
 	catch (NullPointerException e) {
 		System.out.println(e);
 	}
-	catch (NoSuchAlgorithmException e)
-	{
+	catch (NoSuchAlgorithmException e)	{
 	    e.printStackTrace();
 	}
-	catch (SQLException e) 
-			{
+	catch (SQLException e) 	{
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		
-		
-			} 
-
+			e.printStackTrace();	
+	} 
+}
+else
+{
+	response.sendRedirect("login.jsp");
+	}
 %>
 
 

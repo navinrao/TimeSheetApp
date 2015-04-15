@@ -4,8 +4,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 	<%
 	request.getSession(true);
-	//if(session.getAttribute("UserName")== null)
-	//response.sendRedirect("login.jsp");
+	if(session.getAttribute("UserName")== null)
+	response.sendRedirect("login.jsp");
 	%>
 
 <html>
@@ -92,22 +92,33 @@ try {
 	stmt.executeUpdate(SQL);
 	//System.out.println("Record for " + first + last + "has been added: ");
 	//response.sendRedirect("NewEmp.jsp");
-	
 
-	
-	 String confirm= " A record for " + first + last + " has been created" + "\n" + " Would you like to add another? " ; 		
-	//response.sendRedirect("login.jsp");
+	 String msg = " A record for " + first + last + " has been created" + "\n" + " Would you like to add another? " ; 		
+// 	//response.sendRedirect("login.jsp");
 		
-		String option[] ={"OK", "NO"};
-		int status = JOptionPane.showOptionDialog(null, confirm, "Add Record", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
-		if(status==JOptionPane.OK_OPTION)
-		{
-			response.sendRedirect("NewEmp.jsp");
-		}
-		else
-		{
-			response.sendRedirect("welcome.jsp");
-		}
+// 		String option[] ={"OK", "NO"};
+// 		int status = JOptionPane.showOptionDialog(null, confirm, "Add Record", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
+// 		if(status==JOptionPane.OK_OPTION)
+// 		{
+// 			response.sendRedirect("NewEmp.jsp");
+// 		}
+// 		else
+// 		{
+// 			response.sendRedirect("welcome.jsp");
+// 		}
+
+	JOptionPane option = new JOptionPane(msg, JOptionPane.PLAIN_MESSAGE ,JOptionPane.YES_NO_OPTION);
+	JDialog dia = option.createDialog(null, "Record Create");
+	dia.setAlwaysOnTop(true);
+	dia.show();
+	if(option.equals(JOptionPane.YES_OPTION));
+	{
+	 
+	}
+
+
+
+
 }
 
 	

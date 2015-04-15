@@ -26,12 +26,10 @@
 		
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/newemp.css">
 
-
-
-
-
-
-
+	
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
+		<script type="text/javascript" src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
 
 </head>
 <body>
@@ -81,24 +79,25 @@
   
 		  <!-- Here is the center of the page -->
 		  
- <form class="form-horizontal"   role="form" action="addEmp.jsp" method="post" >
+ <form class="form-horizontal" onSubmit="return checkblanks()"  action="addEmp.jsp" method="post" >
     <div class="form-group">
       <label class="control-label col-sm-2" for="empid">EmpID:</label>
       <div class="col-sm-5">
-        <input type="text" class="form-control" name="empid" required>
+        <input type="text"  id="emp_id" class="form-control" name="empid" 
+        	pattern="(?=.*\d)(?=.*[a-z]).{6,8}"  title="Field must be 7 character long and must begin with 3 letters">
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2" for="fname">First Name:</label>
       <div class="col-sm-5">          
-        <input type="text" class="form-control" name="fname" required>
+        <input type="text" id="emp_fname"  class="form-control" name="fname" >
       </div>
     </div>
   
   <div class="form-group">
       <label class="control-label col-sm-2" for="lname">Last Name:</label>
       <div class="col-sm-5">          
-        <input type="text" class="form-control" name="lname"required>
+        <input type="text"  id="emp_lname" class="form-control" name="lname">
       
       </div>
     </div>
@@ -107,7 +106,7 @@
   <div class="form-group">
       <label class="control-label col-sm-2" for="init">Middle Name:</label>
       <div class="col-sm-5">          
-        <input type="text" class="form-control" name="middle">
+        <input type="text"  id="emp_init" class="form-control" name="middle">
       </div>
     </div>
     
@@ -115,49 +114,55 @@
     <div class="form-group">
       <label class="control-label col-sm-2" for="ssn">SSN:</label>
       <div class="col-sm-5">          
-        <input type="text" class="form-control" name="ssn" >
+        <input type="text"  id="emp_ssn" class="form-control" name="ssn" 
+        	pattern="([0-9]).{8,10}" title="Must be numbers without - ">
       </div>
     </div>
     
     <div class="form-group">
       <label class="control-label col-sm-2" for="dob">Date Of Birth</label>
       <div class="col-sm-5">          
-        <input type="text" class="form-control" name="dob" required>
+        <input type="text"   id="emp_dob"class="form-control" name="dob" 
+        	pattern="\d{4}-\d{1,2}-\d{1,2}" title ="Enter DoB as yyyy-mm-dd">
       </div>
     </div>
     
     <div class="form-group">
       <label class="control-label col-sm-2" for="gender">Gender</label>
       <div class="col-sm-5">          
-        <input type="text" class="form-control" name="gender" >
+        <input type="text" id="emp_gen" class="form-control" name="gender" 
+        		pattern="([m,f,o]).{0,2}" title="Must be m, f, or o - ">
       </div>
     </div>
     
     <div class="form-group">
       <label class="control-label col-sm-2" for="manager">Manager Id:</label>
       <div class="col-sm-5">          
-        <input type="text" class="form-control" name="manager">
+        <input type="text" id="emp_manId" class="form-control" name="manager"
+        		pattern="([1,2,3]).{0,2}" title="Must be 1, 2, or 3 - ">
       </div>
     </div>
   
   	<div class="form-group">
       <label class="control-label col-sm-2" for="title"> Title Id:</label>
       <div class="col-sm-5">          
-        <input type="text" class="form-control" name="title" >
+        <input type="text" id="emp_title" class="form-control" name="title" 
+        	pattern="([1,2,3]).{0,2}" title="Must be 1, 2, or 3 - ">
       </div>
     </div>
     
         <div class="form-group">
       <label class="control-label col-sm-2" for="username">User Name:</label>
       <div class="col-sm-5">          
-        <input type="text" class="form-control" name="username" required>
+        <input type="text" id="emp_Uname" class="form-control" name="username" >
       </div>
     </div>
     
         <div class="form-group">
       <label class="control-label col-sm-2" for="password">PassWord:</label>
       <div class="col-sm-5">          
-        <input type="text" class="form-control" name="password" required>
+        <input type="text" id="emp_pword"class="form-control" name="password" 
+         	pattern=".{4,6}" title="between 4 and 6 characters">
       </div>
     </div>
     
@@ -165,7 +170,8 @@
         <div class="form-group">
       <label class="control-label col-sm-2" for="doh">Date Of Hire:</label>
       <div class="col-sm-5">          
-        <input type="text" class="form-control" name="doh" >
+        <input type="text" id="emp_doh"class="form-control" name="doh" 
+        	pattern="\d{4}-\d{1,2}-\d{1,2}" title ="Enter DoB as yyyy-mm-dd">
       </div>
     </div>
     
@@ -173,14 +179,15 @@
         <div class="form-group">
       <label class="control-label col-sm-2" for="term">Date of Termination:</label>
       <div class="col-sm-5">          
-        <input type="text" class="form-control" name="term" placeholder="Termination" readonly>
+        <input type="text"  class="form-control" name="term" placeholder="Termination" readonly>
       </div>
     </div>
     
         <div class="form-group">
       <label class="control-label col-sm-2" for="create">Create Date:</label>
       <div class="col-sm-5">          
-        <input type="text" class="form-control" name="create" required>
+        <input type="text" class="form-control" name="create"
+        	pattern="\d{4}-\d{1,2}-\d{1,2}" title ="Enter DoB as yyyy-mm-dd">
       </div>
     </div>
     
@@ -199,7 +206,7 @@
      <div class="form-group" >        
       <div class="col-sm-offset-2 col-sm-10">
       
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" id="btn_submit" class="btn btn-primary">Submit</button>
         
        </div>
     </div>
@@ -225,6 +232,98 @@
 
 		</div>
 
+	<script >
+		function checkblanks()
+		{
+			var errMsg ="";
+			if(document.getElementById('emp_id').value == "")
+			{
+				errMsg+="Please enter id \n";
+				//alert("empid");
+				//return false;
+			}
+			if(document.getElementById('emp_fname').value == "")
+			{
+				errMsg+="Please enter First name \n";
+				//alert("empid");
+				//return false;
+			}
+			if(document.getElementById('emp_lname').value == "")
+			{
+				errMsg+="Please enter last name \n";
+				//alert("empid");
+				//return false;
+			}
+			if(document.getElementById('emp_init').value == "")
+			{
+				errMsg+="Please enter  middle initial name \n";
+				//alert("empid");
+				//return false;
+			}
+			if(document.getElementById('emp_ssn').value == "")
+			{
+				errMsg+="Please enter  ssn name \n";
+				//alert("empid");
+				//return false;
+			}
+			if(document.getElementById('emp_dob').value == "")
+			{
+				errMsg+="Please enter DOB \n";
+				//alert("empid");
+				//return false;
+			}
+			if(document.getElementById('emp_gen').value == "")
+			{
+				errMsg+="Please enter gender\n";
+				//alert("empid");
+				//return false;
+			}
+			if(document.getElementById('emp_manId').value == "")
+			{
+				errMsg+="Please enter manager Id \n";
+				//alert("empid");
+				//return false;
+			}
+			if(document.getElementById('emp_title').value == "")
+			{
+				errMsg+="Please enter title \n";
+				//alert("empid");
+				//return false;
+			}
+			if(document.getElementById('emp_Uname').value == "")
+			{
+				errMsg+="Please enter user name \n";
+				//alert("empid");
+				//return false;
+			}
+			if(document.getElementById('emp_pword').value == "")
+			{
+				errMsg+="Please enter password \n";
+				//alert("empid");
+				//return false;
+			}
+			if(document.getElementById('emp_doh').value == "")
+			{
+				errMsg+="Please enter date of hire \n";
+				//alert("empid");
+				//return false;
+			}
+
+			if(errMsg!="")
+			{
+				
+				alert(errMsg);
+				return false;
+			}
+		
+
+
+		}//end checkblanks function
+		
+	
+
+	
+	</script>
 
 </body>
 </html>

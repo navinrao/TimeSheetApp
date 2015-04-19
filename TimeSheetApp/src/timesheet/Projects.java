@@ -17,7 +17,6 @@ public class Projects {
 	public int totalMenuOptions; // stores the total number of add project drop down menu options
 	public ArrayList<Project> weeklyProjects  = new ArrayList<>(); // initializes a weeklyProjects ArrayList for the current user
 	public ArrayList<String> projCodesMenu = new ArrayList<>(); // initializes a String ArrayList of unused Project Codes accessible by the user via the timesheet.jsp interface Add Project drop down menu
-	public ArrayList<String> projCodesRows = new ArrayList<>();
 	public Date weekBeginsOn; // stores the date representing the beginning of the target week for the timesheet.jsp
 	public Date weekEndsOn; // stores the date representing the ending of the target week for the timesheet.jsp
 	public double[] dailySubTotalHours = new double[7]; // stores the sub total for the daily total hours of each project on a specific day
@@ -67,16 +66,21 @@ public class Projects {
 		try {
 			con = DriverManager.getConnection(connectionUrl);
 			System.out.println("Connected."); 
+			stmt = con.createStatement();
 			
-			//SQL = "SELECT project_code FROM timesheet.projects WHERE manager_id = '" + getManagerID(empID) + "'";
-			SQL = "SELECT project_code FROM timesheet.projects";
-			stmt = con.createStatement();  
+			// GETS MANAGER ID WHO THE EMPLOYEE REPortS TO
+			SQL = "SELECT manager_id FROM timesheet.employees WHERE employee_id = '" + empID + "'";
+			rs = stmt.executeQuery(SQL);
+			
+			// GETS PROJECT CODES ASSIGNED TO MANAGER ID WHO THE EMPLOYEE REPORTS TO
+			SQL = "SELECT project_code FROM timesheet.projects WHERE manager_id = '" + rs.getInt("manager_id") + "'";
+			rs.close();
+			
 			rs = stmt.executeQuery(SQL); 
-			
+		
 			while (rs.next())  
 			{			
 				projCodesMenu.add(rs.getString("project_code"));
-				projCodesRows.add(projCodesMenu.get(totalRows));
 				totalRows++;
 			}
 			

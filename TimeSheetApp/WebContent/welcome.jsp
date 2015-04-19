@@ -1,16 +1,9 @@
-	<%
 
-	request.getSession(true);
-// 	if(session.getAttribute("UserName")== null)
-	
-// 		response.sendRedirect("login.jsp");
-	
-
-	%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
+/
 <%@ page import="java.sql.*"%>
 <%@ page import= "java.sql.Connection" %>
 <%@ page import= "java.sql.DriverManager" %>
@@ -24,7 +17,7 @@ String UserName = request.getParameter("username");
 String PassWord = request.getParameter("password");
 String empID;
 
-
+request.getSession(true);
 session = request.getSession();
 session.setAttribute("UserName", UserName);
 if(session.getAttribute("UserName")!=null)
@@ -102,7 +95,7 @@ Connection con;try {
 	} 
 }
 else
-{
+	{
 	response.sendRedirect("login.jsp");
 	}
 %>
@@ -140,7 +133,7 @@ else
 
 
 
-<table id="session" >
+<table id="session"  >
 	<tr>
 				<td>
 					<!--  <span class="label label-default col-m-8" >Signed in as</span> -->
@@ -151,10 +144,10 @@ else
 				<!--  <input type="text" class="form-control" aria-describedby="basic-addon1" value="<%=session.getAttribute("UserName") %>" readonly > -->
 			
 			</td>
-		
+
 			<td>
 				<form method="post" action="logout.jsp">
-				<button type="submit" class="btn-group btn-group-xs" >Logout</button>
+				<button type="submit" class="btn-group  btn-group-xs" >Logout</button>
 				</form>
 			</td>
 		
@@ -173,7 +166,7 @@ else
     <div>
       <ul class="nav navbar-nav">
         <li class="active"><a href="welcome.jsp">Home</a></li>
-        <li><a href="timesheet2.jsp">Time Sheet</a></li>
+        <li><a href="timesheet.jsp">Time Sheet</a></li>
         <li><a href="NewEmp.jsp">New Employee</a></li>
         <li><a href="addproj.jsp">Projects</a></li>
         <li><a href="#">About Us</a></li>

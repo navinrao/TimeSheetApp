@@ -57,6 +57,8 @@
         	$(this).children().hide();			// hides all nested end_time elements in end time cell
         	}); 
         
+        $(".inactiveProject").hide();
+        
         $(".start_1").show();
         $(".end_1").show();
 
@@ -152,7 +154,7 @@
     		"var index = selectedProject.selectedIndex;" + 
     		"alert('a');" + 
     		"var projectCode = selectedProject.options[index].innerHTML;" +
-    	    "alert('b');" + 
+    	   "alert('b');" + 
             "var x = document.getElementById('project').value;" +
     		"alert('c');" +
             "window.location.replace('timesheet.jsp?project='+projectCode);	// posts 'projectCode' variable in URL so we can pass JS variable to Java" 
@@ -171,11 +173,11 @@
 		var index = selectedProject.selectedIndex;
 		var projectCode = selectedProject.options[index].innerHTML;
 
-		$("."+projectCode).show();	// Displays row with project code that was selected
+		$("#"+projectCode).show();	// Displays row with project code that was selected
 		// Hides option tag in Drop Down Menu after selection
 		$("option").each(function(index) {
 			if (this.innerHTML == projectCode)
-				$(this).hide();
+				$(this).prop('disabled', true);
 		});
         //var x = document.getElementById("project").value;
 <%--         window.location.replace("timesheet.jsp?project="+projectCode);	// posts "projectCode" variable in URL so we can pass JS variable to Java
@@ -224,7 +226,7 @@
     //<!-- Inserts a new row for new project -->
     var getTableHTML = function (name) {
         $(".table > tbody:last").append("<tr class='unselected'> <td><button class='projBtn' onclick=selectRow(this)>" + name + "</button></td>"
-	    + "<td><input class='timepicker'></td><td><input class='timepicker'></td><td><input type='number' class='Sun' disabled></td>"
+	   + "<td><input class='timepicker'></td><td><input class='timepicker'></td><td><input type='number' class='Sun' disabled></td>"
    	    + "<td><input type='number' class='Mon' disabled></td><td><input type='number' class='Tues'  disabled></td>"
    	    + "<td><input type='number' class='Wed'  disabled></td><td><input type='number' class='Thurs'  disabled>"
    	    + "</td><td><input type='number' class='Fri'  disabled ></td><td><input type='number' class='Sat'  disabled></td>"
@@ -377,7 +379,7 @@
             <th><button onclick="showTimes(this)">Sat</button></th>
             <th>TOTAL</th>
           </tr>
-		  <tr>
+		 <tr>
 			<th></th>
 			<th></th>
 			<th></th>
@@ -389,10 +391,13 @@
             <th id="4" class="date"></th>
             <th id="5" class="date"></th>
             <th id="6" class="date"></th>
-		  </tr>
+		 </tr>
         </thead>
      	<tbody>
-			<% for (int project = 0; project < user1.weeklyProjects.size(); project++) {
+			<% 
+			// Generates rows for Active Projects from weeklyProjects 
+			
+			for (int project = 0; project < user1.weeklyProjects.size(); project++) {
 				//THE TABLE ROW STRUCTURE (11 TOTAL CELLS [9 LABELS & 14 INPUT BOXES])### %>
 				<tr id ="<%=user1.weeklyProjects.get(project).getProjectCode()%>">
 				
@@ -430,7 +435,52 @@
 					
 				<!-- ***WEEKLY TOTAL HOURS (1 CELL)*** -->
 				
-				<td><label><%=user1.weeklyProjects.get(project).getWeeklyTotalHours() / 2%> </label></td> 		<!-- //SUNDAY-SATURDAY -->
+				<td><label><%=user1.weeklyProjects.get(project).getWeeklyTotalHours()%> </label></td> 		<!-- //SUNDAY-SATURDAY -->
+			<%}%>
+			</tr>
+			
+			<%
+			// Generates rows for Inactive Projects from projCodesMenu
+			
+			for (int project = 0; project < user1.projCodesMenu.size(); project++) {
+				//THE TABLE ROW STRUCTURE (11 TOTAL CELLS [9 LABELS & 14 INPUT BOXES])### %>
+				<tr id ="<%=user1.projCodesMenu.get(project)%>" class="inactiveProject">
+				
+				<!--  ***PROJECT CODE (1 CELL)*** -->
+				<td><label><%=user1.projCodesMenu.get(project)%></label></td>
+				
+				<!--  ***START TIME (1 CELL)*** [one input box].show() based on today's date from java class or getDate().getDay() -->
+				
+				<td class="start_time">
+					<input type="text" class="start_0" disabled value=""/>	<!-- Sunday -->
+					<%for (int day = 1; day < 6; day++) { %>
+						<input type="text" class="start_<%=day %>" value="" />		<!-- Monday to Friday -->
+					<%}%>
+					<input type="text" class="start_6" disabled value=""/>	<!-- Saturday -->
+				</td>
+				
+				<!-- ***END TIME (1 CELL)*** [one input box].show() based on today's date from java class or getDate().getDay() -->
+	
+				<td class="end_time">
+					<input type="text" class="end_0" disabled value="" />  <!-- Sunday -->
+					<%for (int day = 1; day < 6; day++) { %>
+						<input type="text" class="end_<%=day %>" value="" />	<!-- Monday to Friday -->
+					<%}%>
+					<input type="text" class="end_6" disabled value=""/> <!-- Saturday -->
+				</td>
+				
+				
+				<!--  ***TOTAL HOURS (7 CELLS)*** -->
+				
+				<td class="total_0"> <label> </label> </td> <!-- [DISABLED]	//SUNDAY  -->
+				<%for (int day = 1 ; day < 6; day++) { %>
+					<td class="total_<%=day %>"> <label></label> </td>	<!-- //MONDAY-FRIDAY -->
+				<%} %>
+				<td class="total_6"> <label></label></td> <!-- [DISABLED]	//SATURDAY -->
+					
+				<!-- ***WEEKLY TOTAL HOURS (1 CELL)*** -->
+				
+				<td><label> </label></td> 		<!-- //SUNDAY-SATURDAY -->
 			<%}%>
 			</tr>
 		</tbody>
@@ -471,10 +521,20 @@
        		%>
         </tbody> --%>
         <tfoot>
-	    	<td>
+	   	<td>
 				<select id ="project" onchange="addProject(this)">
+				 <!-- <option value="volvo">Volvo</option> -->
 				</select>
-            </td> 
+            </td>
+            <td></td>
+            <td></td>
+            <% for (int day = 0; day < 7; day++) { %>
+                <td><label><%=user1.getDailySubTotalHours(day) %></label></td>
+            <%} %>
+            <td><label><%=user1.getWeeklyGrandTotalHours() %></label></td>
+
+
+         
         </tfoot>
       </table>
       		<!--  /////////////////////////////////////////////////////////////////////////////// -->
@@ -491,21 +551,21 @@
        	<div class="col-sm-offset-1 col-sm-2">
  			<button type="submit" class="btn btn-lg btn-info btn-block">Save</button>
      	 </div>
-			      
+			     
       	<div>
       		<div class="col-sm-offset-1 col-sm-2">
       		<a href="#" class="btn btn-info btn-lg">
     		<span class="glyphicon glyphicon-fast-backward"></span>
  			</a>	
-	      	</div>
+	     	</div>
 		</div>
      
      
   		<div>
   			<div class="col-sm-offset-1 col-sm-2">
-    	  <a href="#" class="btn btn-info btn-lg">
+    	 <a href="#" class="btn btn-info btn-lg">
         	<span class="glyphicon glyphicon-fast-forward"></span> 
-    		 </a>
+    		</a>
   			</div>
   		</div>
       

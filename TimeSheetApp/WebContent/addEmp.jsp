@@ -31,9 +31,7 @@ String empId = request.getParameter("empid");
 String first = request.getParameter("fname");
 String middle = request.getParameter("middle");
 String last = request.getParameter("lname");
-
 int social = Integer.parseInt(request.getParameter("ssn"));
-
 String date_birth = request.getParameter("dob");
 String oreintation = request.getParameter("gender");
 int man_Id = Integer.parseInt(request.getParameter("manager"));
@@ -94,18 +92,7 @@ try {
 	//response.sendRedirect("NewEmp.jsp");
 
 	 String msg = " A record for " + first + last + " has been created" + "\n" + " Would you like to add another? " ; 		
-// 	//response.sendRedirect("login.jsp");
-		
-// 		String option[] ={"OK", "NO"};
-// 		int status = JOptionPane.showOptionDialog(null, confirm, "Add Record", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
-// 		if(status==JOptionPane.OK_OPTION)
-// 		{
-// 			response.sendRedirect("NewEmp.jsp");
-// 		}
-// 		else
-// 		{
-// 			response.sendRedirect("welcome.jsp");
-// 		}
+
 
 	JOptionPane option = new JOptionPane(msg, JOptionPane.PLAIN_MESSAGE ,JOptionPane.YES_NO_OPTION);
 	JDialog dia = option.createDialog(null, "Record Create");
@@ -113,11 +100,9 @@ try {
 	dia.show();
 	if(option.equals(JOptionPane.YES_OPTION));
 	{
-	 
+		
+			response.sendRedirect("NewEmp.jsp");
 	}
-
-
-
 
 }
 

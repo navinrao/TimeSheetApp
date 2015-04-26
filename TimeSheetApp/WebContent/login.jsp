@@ -31,7 +31,7 @@
 
 	
 		
-      <form class="form-signin" id="login" method="post" action="welcome.jsp">
+      <form class="form-signin" id="login" method="post" action="checkLogin.jsp">
        
         <label for="username" class="sr-only">User Name</label>
         <input type="text" name="username" id="user" class="form-control"  required >

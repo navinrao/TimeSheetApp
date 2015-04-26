@@ -66,9 +66,8 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="welcome.jsp">Home</a></li>
         <li><a href="timesheet.jsp">Time Sheet</a></li>
-        <li><a href="NewEmp.jsp">New Employee</a></li>
         <li><a href="addproj.jsp">Projects</a></li>
-        <li><a href="#">About Us</a></li>
+        <li><a href="read.jsp">Revisions</a></li>
       </ul>
     </div>
   </div>
@@ -171,7 +170,7 @@
       <label class="control-label col-sm-2" for="doh">Date Of Hire:</label>
       <div class="col-sm-5">          
         <input type="text" id="emp_doh"class="form-control" name="doh" 
-        	pattern="\d{4}-\d{1,2}-\d{1,2}" title ="Enter DoB as yyyy-mm-dd">
+        	pattern="\d{4}-\d{1,2}-\d{1,2}" title ="Enter DoH as yyyy-mm-dd">
       </div>
     </div>
     
@@ -187,7 +186,7 @@
       <label class="control-label col-sm-2" for="create">Create Date:</label>
       <div class="col-sm-5">          
         <input type="text" class="form-control" name="create"
-        	pattern="\d{4}-\d{1,2}-\d{1,2}" title ="Enter DoB as yyyy-mm-dd">
+        	pattern="\d{4}-\d{1,2}-\d{1,2}" title ="Enter creation date as yyyy-mm-dd">
       </div>
     </div>
     

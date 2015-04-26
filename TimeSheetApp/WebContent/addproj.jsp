@@ -63,8 +63,7 @@
         <li class="active"><a href="welcome.jsp">Home</a></li>
         <li><a href="timesheet.jsp">Time Sheet</a></li>
         <li><a href="NewEmp.jsp">New Employee</a></li>
-        <li><a href="addproj.jsp">Projects</a></li>
-        <li><a href="#">About Us</a></li>
+        <li><a href="read.jsp">Revisions</a></li>
       </ul>
     </div>
   </div>
@@ -120,13 +119,7 @@
       </div>
     </div>
     
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="gender">Gender</label>
-      <div class="col-sm-5">          
-        <input type="text" class="form-control" name="gender" >
-      </div>
-    </div>
-    
+  
 
   <!-- Button submit -->
   

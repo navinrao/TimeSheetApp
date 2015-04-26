@@ -6,12 +6,13 @@ padding-left: 2.5em;
 margin-right: auto;
 margin-left: auto;
 
-
 }
+
+
 .container{
 	color:#4BB0CC;
 	font-family: Verdana,serif, times, "New Times Roman";
-	font-size:2.5em;
+	font-size:2.0em;
 	font-weight: 500;
 	background-color:#88CFE3;
 }
@@ -23,12 +24,13 @@ margin-left: auto;
 	font-family: Verdana,serif, times, "New Times Roman";
 	text-align:center;
 	
+	
 }
 #session{
 	float:right;
 	padding:.5em;
 	margin-top: 1.5em;
-	cellspacing="10"
+	cellspacing:"10"
 }
 
 

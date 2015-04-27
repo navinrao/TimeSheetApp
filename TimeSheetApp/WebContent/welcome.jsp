@@ -14,20 +14,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Welcome Page</title>
+				<!-- Latest compiled and minified CSS -->
 
-
-		
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-		
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 		<!-- Optional theme -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<!-- Latest compiled and minified JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 		
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/welcome.css">
-
 
 </head>
 <body>
@@ -36,8 +32,6 @@
 <!-- <script Language="javaScript">alert("Welcome")</script> -->
 
 <img src="${pageContext.request.contextPath}/Images/logo.jpg" alt="logo" style="width:175px;height:125px">
-
-
 
 <table id="session"  >
 	<tr>
@@ -56,14 +50,8 @@
 				<button type="submit" class="btn-group  btn-group-xs" >Logout</button>
 				</form>
 			</td>
-		
-		
-		</tr>
-	
-</table>
-
-
-
+	</tr>
+	</table>
 <nav class="navbar navbar-info">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -95,6 +83,5 @@
 		<p> Professor: Taghi Ozbeki </p>	
 		</div>
  
-
 </body>
 </html>

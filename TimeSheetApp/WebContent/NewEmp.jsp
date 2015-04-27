@@ -160,7 +160,7 @@
         <div class="form-group">
       <label class="control-label col-sm-2" for="password">PassWord:</label>
       <div class="col-sm-5">          
-        <input type="text" id="emp_pword"class="form-control" name="password" 
+        <input type="password" id="emp_pword"class="form-control" name="password" 
          	pattern=".{4,6}" title="between 4 and 6 characters">
       </div>
     </div>
@@ -178,7 +178,7 @@
         <div class="form-group">
       <label class="control-label col-sm-2" for="term">Date of Termination:</label>
       <div class="col-sm-5">          
-        <input type="text"  class="form-control" name="term" placeholder="Termination" readonly>
+        <input type="text"  class="form-control" name="term"  readonly>
       </div>
     </div>
     

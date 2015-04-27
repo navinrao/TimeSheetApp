@@ -5,17 +5,17 @@
 <%
 
 	String confirm = "Are you sure?";
-
-
-	JOptionPane option = new JOptionPane(confirm, JOptionPane.PLAIN_MESSAGE ,JOptionPane.YES_NO_OPTION);
+	JOptionPane option = new JOptionPane(confirm, JOptionPane.PLAIN_MESSAGE ,JOptionPane.YES_OPTION);
 	JDialog dia = option.createDialog(null, "Log Out");
 	dia.setAlwaysOnTop(true);
 	dia.show();
 	if(option.equals(JOptionPane.YES_OPTION));
 	{
-	 	session.setAttribute("UserName", null);
+	 	
 		session.invalidate();
+		
 		response.sendRedirect("login.jsp");
 	}
+	
 	
 %>

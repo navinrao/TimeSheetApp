@@ -27,7 +27,7 @@
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/welcome.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/read.css">
 
 
 
@@ -60,19 +60,19 @@
 	<!-- table to handle display -->
 	
 	
-	    <form action="read.jsp" method="post">
-	    <table style="background-color:#0099FF">
+	    <form action="expire.jsp" method="post">
+	    <table class="success">
 	    <tr>
 	    	<td>
-	    		Record Id:<input type="text" id="record"/>
+	    		Record Id:<input type="text" name="record"/>
 	    	</td>
 	    		<td>
-	    			Comments:<input type="textarea"  size="125"  id="comments"/>
+	    			Comments:<input type="textarea"  size="125"  name="comments"/>
 	    		</td>	
 		    </tr>
 		    	<tr>
 			    	<td>
-			    		<input style="background-color:lightgreen" type="submit" value="Submit Rev"/>
+			    		<button type="submit" class="btn btn-primary">Submit</button>
 			    	</td>
 			    	
 		    	</tr>
@@ -96,7 +96,7 @@ try {
     //  String SQL = "SELECT * FROM timesheet.login where UserName = 'mas6462'";
     
     String empId = (String)session.getAttribute("Employee_ID");
-   	String SQL = ("SELECT employee_id,history_id, start_time, end_time, project_code, weekday_date, comments  From timesheet.history Where employee_id='" + empId + "' AND expiration_date IS null" );
+   	String SQL = ("SELECT employee_id,history_id, start_time, end_time, project_code, weekday_date, comments  FROM timesheet.history  WHERE employee_id='" + empId + "' AND expiration_date IS null" );
     Statement stmt = con.createStatement();  
     ResultSet rs = stmt.executeQuery(SQL); 
     while(rs.next())
@@ -119,10 +119,11 @@ try {
 			String[] end = en.split(":");
 		    
  %>
-
-		    <table border="0" > 
+		
+		
+		    <table class="success"> 
 		    
-		    <tr>
+		    <tr class="success">
 		    	<th>Emp ID</th>
 		    	<th>Record ID</th>
 		    	<th>Start</th>
@@ -131,9 +132,9 @@ try {
 		    	<th>Week Day</th>
 		    	<th>Comments</th>
 		    	
-		    </tr>   
-		    <tr>
-		    <td><input type="text" name="empid" value="<%=rs.getString("employee_id")%>" readonly></td>
+		    </tr  >   
+		    <tr   class="success">
+		    <td ><input type="text" name="empid" value="<%=rs.getString("employee_id")%>" readonly></td>
 		    <td><input type="text" name="empid" value="<%=rs.getString("history_id")%>"readonly></td>
 		    <td><input type="text" name="empid" value="<%=start[0] + ":" + start[1]%>"readonly></td>
 		   	<td><input type="text" name="empid" value="<%=end[0] + ":" + end[1]%>"readonly></td>
@@ -145,7 +146,7 @@ try {
 				
 		    </table>
 		    
-		    
+		  
 		    
 		    
 		    	

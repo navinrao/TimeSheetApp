@@ -51,6 +51,7 @@ if(session.getAttribute("UserName") != null)
 		            "user=ist440grp1sp15;" + 
 		            "password=ist440grp1sp15"; 
 Connection con;
+
 	try {
 		
 	 				
@@ -75,7 +76,7 @@ Connection con;
 		 
 		
 		
-		con = DriverManager.getConnection(connectionUrl);
+					con = DriverManager.getConnection(connectionUrl);
 			/* 	
 			String SQL = "INSERT INTO timesheet.employees(employee_id, first_name, middle_name, last_name, ssn, dob, gender,"
 					+ "manager_id, job_title_id, username_ts, password_ts, hire_date, term_date, create_date, delete_date)"
@@ -100,7 +101,7 @@ Connection con;
 		}
 	 */ 
 	 
-		String SQL = "SELECT employee_id, username_ts FROM timesheet.employees where employee_id='" + empId + "'AND username_ts='" +user_name + "'";	 
+		String SQL = "SELECT employee_id, username_ts FROM timesheet.employees where employee_id='" + empId + "'AND username_ts='" + user_name + "'";	 
 		Statement stmt = con.createStatement();  
 		ResultSet rs = stmt.executeQuery(SQL); 
 		int count = 0;
@@ -111,15 +112,15 @@ Connection con;
 	 			System.out.println(count);
 	 			rs.close();
 	 		}
-	 		if(count == 1)
-	 		{
-	 			System.out.println("the count is 1");
-	 			JOptionPane option = new JOptionPane("Already Exist", JOptionPane.PLAIN_MESSAGE );
-	 			JDialog dia = option.createDialog(null, "Create Fail");
-	 			dia.setAlwaysOnTop(true);
-	 			dia.show();
-	 				response.sendRedirect("NewEmp.jsp");
-	 		}
+			 		if(count == 1)
+			 		{
+			 			System.out.println("the count is 1");
+			 			JOptionPane option = new JOptionPane("Already Exist", JOptionPane.PLAIN_MESSAGE );
+			 			JDialog dia = option.createDialog(null, "Create Fail");
+			 			dia.setAlwaysOnTop(true);
+			 			dia.show();
+			 			response.sendRedirect("NewEmp.jsp");
+			 		}
 	 	 	else
 	 		{
 	 			
@@ -127,16 +128,13 @@ Connection con;
 	 					+ "manager_id, job_title_id, username_ts, password_ts, hire_date, term_date, create_date, delete_date)"
 	 					+"VALUES('" + empId + "', '" + first + "', '" + middle + "', '" + last + "', '" + social + "', '" + date_birth + "', '" + oreintation + "', '" + man_Id + "', '" + emp_title + "', '" + user_name + "', '" + generatedPassword + "', '" + date_hire + "', '" + date_term + "', '" + create_date + "', '" + del_date + "');";
 	 					 
-
-					//SQL =  "INSERT INTO dbo.testing(employee_id, username)VALUES('abc123', 'ADMIN')";
+						//SQL =  "INSERT INTO dbo.testing(employee_id, username)VALUES('abc123', 'ADMIN')";
 	 					stmt.executeUpdate(SQL);
 	 					// System.out.println("insert statement");
 	 					 rs.close();
 	 		} 
 	 	
 	 	
-	 
-	 
 }
 
 	

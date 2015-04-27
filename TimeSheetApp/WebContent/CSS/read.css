@@ -1,0 +1,27 @@
+@CHARSET "ISO-8859-1";
+
+body {
+padding-right: 2.5em;
+padding-left: 2.5em;
+margin-right: auto;
+margin-left: auto;
+
+}
+
+
+.container{
+	color:#000000;
+	font-family: Verdana,serif, times, "New Times Roman";
+	font-weight: 100;
+	background-color:#88CFE3;
+}
+
+
+
+
+nav.navbar-info{
+	background-image: url('navbar-bg.png');
+  	background-repeat: repeat-x;
+ 	background-color: #E3E7E8;
+	
+}
